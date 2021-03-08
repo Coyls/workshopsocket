@@ -7,9 +7,31 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+let users = [];
+
+const user = [
+    {
+        name: "Yohan",
+        email: "yohan_quinquis@icloud.com"
+    },
+]
+
 io.on('connection', (socket) => {
+    console.log(socket)
+    console.log(socket.id)
+
+
+    socket.on('user', login => {
+        users.push(login)
+        io.emit('user', users);
+    })
+
     socket.on('chat message', msg => {
+        /*socket.on('user', user => {
+            io.emit('user',user)
+        });*/
         io.emit('chat message', msg);
+
     });
 });
 
