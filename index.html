@@ -84,32 +84,38 @@
 <script>
 
     let socket = io();
+    let login = {}
 
-    let usersLog = [];
+
     // --- connection --- //
+
     let formLogin = document.querySelector('#formLogin');
+
+    socket.on('userId', id =>{
+        console.log(id)
+        login.userId = id
+    })
 
     formLogin.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(e.target)
         const name = formData.get("nom")
         const mail = formData.get("email")
-        let login = {
-            name : name,
-            mail : mail
-        }
+        login.name = name
+        login.mail = mail
+
         socket.emit('user', login);
     })
 
-    socket.on('user', users => {
+    /*socket.on('user', users => {
         console.log(users)
         usersLog = users;
-    })
+    })*/
 
     // --- Message ---
 
-    const nomValue = document.querySelector("#name")
-    const emailValue = document.querySelector("#email")
+    /*const nomValue = document.querySelector("#name")
+    const emailValue = document.querySelector("#email")*/
 
 
 
@@ -130,6 +136,7 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });
+
 </script>
 </body>
 </html>
