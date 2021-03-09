@@ -82,10 +82,11 @@ socket.on('chat message', function (msg) {
     item.innerHTML += `
                 <img alt="img_profil" src="${msg.image}">
                 <p class="message-name">${msg.user}</p>
-                <p class="message-text">${msg.message}</p>`
+                <p class="message-text">: ${msg.message}</p>`
 
     // item.textContent = msg;
     messages.appendChild(item);
+    item.focus()
     window.scrollTo(0, document.body.scrollHeight);
 });
 
@@ -95,6 +96,10 @@ socket.on('connect message', function (msg) {
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
 });
+
+socket.on('participants', (users) => {
+    console.log(users)
+})
 
 
 

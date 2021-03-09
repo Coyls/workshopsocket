@@ -284,3 +284,8 @@ h1, h2 {
 
 }
 
+li {
+    display: flex;
+    flex-direction: row;
+}
+

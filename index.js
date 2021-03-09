@@ -23,6 +23,7 @@ io.on('connection', (socket) => {
         users.push(login)
         console.log(login)
         // io.emit('user', users);
+        io.emit('participants' , users)
         io.emit('connect message', `${login.name} viens de se connecter`)
     })
 
