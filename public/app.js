@@ -1,16 +1,17 @@
 // ----- timer ---- //
 
 const wait = (delay) => {
-    return new  Promise((resolve => {
+    return new Promise((resolve => {
         setTimeout(() => {
             resolve();
-        },delay)
+        }, delay)
     }))
 }
 
 // ------------------------------- interaction ------------------------------- //
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
+const message = document.querySelector("#message")
 people.innerHTML += `
     <div class="user">
         <div class="imgUser">
@@ -39,9 +40,19 @@ backButton.onclick = () => {
 }
 
 const group = document.querySelector("#group")
+const groupUser = document.querySelector("#groupUser")
 group.onclick = () => {
-
+    message.style.left = "-20vw"
+    groupUser.style.left = "80vw"
+    groupUser.style.transition = "all, 0.5s"
+    message.style.transition = "all, 0.5s"
 }
+
+messages.onclick = () => {
+    groupUser.style.left = "100vw"
+    message.style.left = "0vw"
+}
+
 
 // -------------------------------- connection -------------------------------- //
 
@@ -104,22 +115,23 @@ socket.on('chat message', function (msg) {
 
     item.innerHTML += `
                 <div class="message-container">
-                <img alt="img_profil" src="${msg.image}">
-                <p class="message-name">${msg.user}</p>
+                <img alt="img_profil" src="${msg.image}" class="imgGrav">
+                <p class=" message-name">${msg.user}</p>
                 <p class="message-text">: ${msg.message}</p>
                 </div>`
 
     // item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight+item);
+    document.scrollTo(0, document.body.scrollHeight);
 
 });
 
 socket.on('connect message', function (msg) {
     let item = document.createElement('li');
+    item.classList.add("connectionMessage")
     item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight+item);
+    document.scrollTo(0, document.messages.scrollHeight);
 });
 
 socket.on('participants', (users) => {
@@ -129,12 +141,12 @@ socket.on('participants', (users) => {
 
     users.forEach(user => {
         participants.innerHTML += `
-            <li id="${user.userId}">
-                <img alt="img_profil" src="${user.image}">
-                <p>${user.name}</p>
-            </li>`
+                <li id="${user.userId}" class="noPointList">
+                    <img alt="img_profil" src="${user.image}" class="imgGravParticipant">
+                    <p class="nameParticipant">${user.name}</p>
+                </li>
+          `
     })
-
 })
 
 document.querySelector("#input").addEventListener('input', (e) => {
@@ -146,7 +158,7 @@ document.querySelector("#input").addEventListener('input', (e) => {
 const isWriting = document.querySelector("#isWriting")
 
 socket.on('isWriting', (login) => {
-    isWriting.innerHTML = `${login.name} est en train d'écrire`
+    isWriting.innerHTML = `${login.name} ...`
     wait(4000).then(() => {
         isWriting.innerHTML = ''
     })

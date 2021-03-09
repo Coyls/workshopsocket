@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
         console.log(login)
         // io.emit('user', users);
         io.emit('participants' , users)
-        io.emit('connect message', `${login.name} viens de se connecter`)
+        io.emit('connect message', `${login.name} vient de se connecter`)
     })
 
     socket.on('chat message', msg => {
@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
         const index = users.findIndex(user => user.userId === socket.id)
 
         if (index !== -1) {
-            io.emit('connect message', ` ${users[index].name} viens de se deconnecter`)
+            io.emit('connect message', ` ${users[index].name} vient de se déconnecter`)
             users.splice(index, 1)
         }
 

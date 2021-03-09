@@ -1,19 +1,19 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     height: 100vh;
     width: 100vw;
 }
 
-#people{
+#people {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    width: 100vw;
+    width: 101vw;
     background-color: #223242;
     overflow: hidden;
     z-index: 1;
@@ -23,7 +23,7 @@ h1, h2 {
     width: 100px;
 }
 
-#headerCompte{
+#headerCompte {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +60,7 @@ h1, h2 {
     width: 2.5vh;
 }
 
-#loupeDiv{
+#loupeDiv {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -70,7 +70,7 @@ h1, h2 {
     border: none;
 }
 
-#loupe{
+#loupe {
     position: relative;
     top: 1vh;
     left: 4vw;
@@ -142,13 +142,14 @@ h1, h2 {
     overflow: hidden;
 }
 
-#headerMessage{
+#headerMessage {
     position: fixed;
     top: 0;
     left: 0;
     height: 12.5vh;
     width: 100vw;
-    background-color: #F6EEDC;
+    font-size: 2vh;
+    background-color: #ececec;
 }
 
 #backArrow {
@@ -171,10 +172,10 @@ h1, h2 {
 
 .titleMessage {
     position: absolute;
-    top: 4.5vh;
+    top: 3.5vh;
     left: 30vw;
-    width: 40vw;
-    font-size: 2.5vh;
+    width: 60vw;
+    font-size: 3.5vh;
     color: #223242;
     font-family: Poppins, serif;
     overflow: hidden;
@@ -182,7 +183,7 @@ h1, h2 {
 
 #group {
     position: absolute;
-    top: 4vh;
+    top: 3.75vh;
     right: 5vw;
     height: 4.5vh;
     width: 4.5vh;
@@ -206,7 +207,7 @@ h1, h2 {
     width: 80vw;
     border: none;
     font-size: 2vh;
-    background-color: #F6EEDC;
+    background-color: #ececec;
 }
 
 #input:focus {
@@ -239,10 +240,7 @@ h1, h2 {
 
 #messages > li {
     padding: 1vh 2vh;
-}
-
-#messages > li:nth-child(odd) {
-    background: #efefef;
+    z-index: 1;
 }
 
 #name {
@@ -250,7 +248,7 @@ h1, h2 {
     top: 89vh;
     left: 0;
     height: 5vh;
-    width:60vw;
+    width: 60vw;
     font-size: 3vh;
     outline: none;
     border: none;
@@ -261,7 +259,7 @@ h1, h2 {
     top: 95vh;
     left: 0;
     height: 5vh;
-    width:60vw;
+    width: 60vw;
     font-size: 3vh;
     outline: none;
     border: none;
@@ -287,7 +285,7 @@ h1, h2 {
 
 #sendForm:hover {
     background-color: #385266;
-    cursor: pointer ;
+    cursor: pointer;
 
 }
 
@@ -309,5 +307,51 @@ h1, h2 {
     flex-direction: row-reverse;
 }
 
+/*------------------------------------------ Group --------------------------------------------*/
 
+#groupUser {
+    position: absolute;
+    top: 12.5vh;
+    left: 101vw;
+    height: 80vh;
+    width: 20vw;
+    background: #f1f1f1;
+}
 
+.noPointList {
+    list-style-type: none;
+}
+
+.imgGrav {
+    height: 5vh;
+    width: 5vh;
+    border-radius: 100vh;
+}
+
+.imgGravParticipant {
+    position: relative;
+    top: 2vh;
+    left: 4.5vw;
+    height: 5vh;
+    width: 11vw;
+    border-radius: 100vh;
+
+}
+
+.nameParticipant {
+    position: relative;
+    top: 1.5vh;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5vh;
+    font-family: Poppins, serif;
+}
+
+.connectionMessage {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    color: dimgrey;
+    font-size: 2vh;
+    opacity: 0.7;
+}
