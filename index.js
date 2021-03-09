@@ -1,11 +1,14 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
+
+app.use(express.static('public'))
 
 let users = [];
 
@@ -29,8 +32,12 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         const index = users.findIndex(user => user.userId === socket.id)
-        io.emit('connect message', ` ${users[index].name} viens de ce deconnecter`)
-        users.splice(index, 1)
+
+        if (index !== -1) {
+            io.emit('connect message', ` ${users[index].name} viens de ce deconnecter`)
+            users.splice(index, 1)
+        }
+
 
     })
 });

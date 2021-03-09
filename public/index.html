@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Socket.IO chat</title>
+</head>
+
+<body>
+
+<div id="people">
+
+    <header id="headerCompte">
+        <div id="imgCompte">
+
+        </div>
+        <h1 id="nameCompte">Yohan Quinquis</h1>
+        <img src="image/arrow.svg" alt="arrow" id="arrowCompte">
+        <div id="loupeDiv">
+            <img src="image/loupe.svg" alt="loupe" id="loupe">
+        </div>
+        <form>
+            <input type="text" id="searchBar" placeholder="Search contacts...">
+        </form>
+    </header>
+
+    <form id="formLogin">
+        <input type="text" name="nom" placeholder="nom" autocomplete="off" id="name">
+        <br/>
+        <input type="text" name="email" placeholder="email" id="email">
+        <button id="sendForm">Send</button>
+    </form>
+
+</div>
+
+<div id="message">
+
+    <div id="headerMessage">
+
+        <img src="image/right-arrow.svg" alt="retour" id="backArrow">
+
+        <img src="image/group.svg" alt="group" id="group">
+
+    </div>
+
+    <ul id="messages"></ul>
+
+    <form id="formMessage" action="">
+        <input id="input" autocomplete="off"/>
+        <button id="sendButton">Send</button>
+    </form>
+
+</div>
+
+<!--------------------------------- Script --------------------------------->
+<script src="/socket.io.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

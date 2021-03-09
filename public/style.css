@@ -1,0 +1,284 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #212121;
+    height: 100vh;
+    width: 100vw;
+}
+
+#people{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #223242;
+    overflow: hidden;
+    z-index: 1;
+}
+
+h1, h2 {
+    width: 100px;
+}
+
+#headerCompte{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25vh;
+    width: 100vw;
+}
+
+#imgCompte {
+    position: relative;
+    top: 7vh;
+    left: 10vw;
+    height: 6vh;
+    width: 6vh;
+    border-radius: 100vh;
+    background-color: rebeccapurple;
+}
+
+#nameCompte {
+    position: relative;
+    top: 2.5vh;
+    left: 27vw;
+    width: 60vw;
+    overflow: hidden;
+    font-size: 2.5vh;
+    font-family: Poppins, serif;
+    color: #FFFFFF;
+}
+
+#arrowCompte {
+    position: relative;
+    top: -0.5vh;
+    left: 80vw;
+    height: 2.5vh;
+    width: 2.5vh;
+}
+
+#loupeDiv{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5vh;
+    width: 15vw;
+    background-color: #385266;
+    border: none;
+}
+
+#loupe{
+    position: relative;
+    top: 1vh;
+    left: 4vw;
+    height: 3vh;
+    width: 3vh;
+}
+
+#searchBar {
+    position: absolute;
+    bottom: 0;
+    left: 15vw;
+    height: 5vh;
+    width: 85vw;
+    font-family: Poppins, serif;
+    font-size: 2vh;
+    outline: none;
+    text-decoration: none;
+    background-color: #385266;
+    border: none;
+}
+
+#searchBar::placeholder {
+    position: relative;
+    left: 2vw;
+    color: #FFFFFF;
+}
+
+.user {
+    position: absolute;
+    top: 25vh;
+    left: 0;
+    height: 12vh;
+    width: 100%;
+    background-color: #223242;
+}
+
+.user:hover {
+    background-color: #385266;
+}
+
+.imgUser {
+    position: relative;
+    top: 3.5vh;
+    left: 5vw;
+    height: 5vh;
+    width: 5vh;
+    background-color: wheat;
+    border-radius: 100vh;
+}
+
+.nameUser {
+    position: relative;
+    top: -0.5vh;
+    left: 19vw;
+    width: 40vw;
+    font-size: 2vh;
+    color: #FFFFFF;
+    font-family: Poppins, serif;
+    overflow: hidden;
+}
+
+#message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #ffffff;
+}
+
+#headerMessage{
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 12.5vh;
+    width: 100vw;
+    background-color: #F6EEDC;
+}
+
+#backArrow {
+    position: relative;
+    top: 3.25vh;
+    left: 5vw;
+    height: 6vh;
+    width: 6vw;
+}
+
+.imgDivMessageUser {
+    position: absolute;
+    top: 3.75vh;
+    left: 15vw;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 100vh;
+    background-color: purple;
+}
+
+.titleMessage {
+    position: absolute;
+    top: 4.5vh;
+    left: 30vw;
+    width: 40vw;
+    font-size: 2.5vh;
+    color: #223242;
+    font-family: Poppins, serif;
+    overflow: hidden;
+}
+
+#group {
+    position: absolute;
+    top: 4vh;
+    right: 5vw;
+    height: 4.5vh;
+    width: 4.5vh;
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+#formMessage {
+    background: rgba(0, 0, 0, 0.15);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    height: 10vh;
+    box-sizing: border-box;
+}
+
+#input {
+    height: 10vh;
+    width: 80vw;
+    border: none;
+    font-size: 2vh;
+    background-color: #F6EEDC;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#sendButton {
+    position: relative;
+    height: 10vh;
+    width: 20vw;
+    background-color: #385266;
+    font-size: 2vh;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages > li {
+    padding: 0.5rem 1rem;
+}
+
+#messages > li:nth-child(odd) {
+    background: #efefef;
+}
+
+#name {
+    position: absolute;
+    top: 89vh;
+    left: 0;
+    height: 5vh;
+    width:60vw;
+    font-size: 3vh;
+    outline: none;
+    border: none;
+}
+
+#email {
+    position: absolute;
+    top: 95vh;
+    left: 0;
+    height: 5vh;
+    width:60vw;
+    font-size: 3vh;
+    outline: none;
+    border: none;
+}
+
+#name:focus, #email:focus {
+    outline: none;
+}
+
+#sendForm {
+    position: absolute;
+    top: 89vh;
+    left: 60vw;
+    height: 11vh;
+    width: 40vw;
+    font-size: 5vh;
+    outline: none;
+    border: none;
+    background-color: #223242;
+}
+
+#sendForm:hover {
+    background-color: #385266;
+    cursor: pointer ;
+
+}
+
