@@ -225,10 +225,12 @@ h1, h2 {
 }
 
 #messages {
+    position: relative;
     list-style-type: none;
     margin: 0;
     padding: 0;
     font-size: 3vh;
+    top: 12.5vh;
     height: 90vh;
     overflow: scroll;
 
