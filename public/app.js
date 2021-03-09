@@ -1,4 +1,3 @@
-const nameCompte = document.querySelector('#nameCompte')
 // ------------------------------- interaction ------------------------------- //
 
 const people = document.querySelector("#people");
@@ -47,15 +46,16 @@ formLogin.addEventListener('submit', (e) => {
     const formData = new FormData(e.target)
     const name = formData.get("nom")
     const mail = formData.get("email")
+    let hash = md5(mail)
     login.name = name
     login.mail = mail
+    login.image = `https://gravatar.com/avatar/${hash}`
 
-    nameCompte.innerHTML = `${name}`
+
     socket.emit('user', login)
 
     // ajouter la disparition SI l'utilisateur est deja ajouter / Vien d'etre ajouter
 })
-
 
 // ------------------------------- Message ------------------------------- //
 
@@ -68,6 +68,7 @@ formMessage.addEventListener('submit', function (e) {
     e.preventDefault();
     messageFrame.user = login.name
     messageFrame.message = input.value
+    messageFrame.image = login.image
     if (input.value) {
         socket.emit('chat message', messageFrame);
         input.value = '';
@@ -79,6 +80,7 @@ formMessage.addEventListener('submit', function (e) {
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
     item.innerHTML += `
+                <img alt="img_profil" src="${msg.image}">
                 <p class="message-name">${msg.user}</p>
                 <p class="message-text">${msg.message}</p>`
 
