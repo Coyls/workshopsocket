@@ -5,7 +5,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Socket.IO chat</title>
+    <link rel="shortcut icon" type="image/png" href="image/favicon.png">
+    <title>Online chat</title>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
         <div id="imgCompte">
 
         </div>
-        <h1 id="nameCompte">Yohan Quinquis</h1>
+        <h1 id="nameCompte"></h1>
         <img src="image/arrow.svg" alt="arrow" id="arrowCompte">
         <div id="loupeDiv">
             <img src="image/loupe.svg" alt="loupe" id="loupe">
@@ -53,8 +54,8 @@
 
     <form id="formMessage" action="">
         <label id="isWriting" for="input"></label>
-        <input name="toWriteMessage" id="input" autocomplete="off"/>
-        <button id="sendButton">Send</button>
+        <input name="toWriteMessage" id="input" autocomplete="off" placeholder="Type your message here"/>
+        <button id="sendButton"><img src="image/paper-plane.svg" alt="send" id="imgSend"></button>
     </form>
 
 </div>

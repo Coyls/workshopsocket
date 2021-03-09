@@ -38,12 +38,11 @@ h1, h2 {
     height: 6vh;
     width: 6vh;
     border-radius: 100vh;
-    background-color: rebeccapurple;
 }
 
 #nameCompte {
     position: relative;
-    top: 2.5vh;
+    top: 2.3vh;
     left: 27vw;
     width: 60vw;
     overflow: hidden;
@@ -90,12 +89,13 @@ h1, h2 {
     text-decoration: none;
     background-color: #385266;
     border: none;
+    text-indent: 3vw;
+    color: #FFFFFF;
 }
 
 #searchBar::placeholder {
     position: relative;
-    left: 1vw;
-    color: #FFFFFF;
+    color: dimgrey;
 }
 
 .user {
@@ -117,7 +117,6 @@ h1, h2 {
     left: 5vw;
     height: 5vh;
     width: 5vh;
-    background-color: wheat;
     border-radius: 100vh;
 }
 
@@ -192,7 +191,7 @@ h1, h2 {
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 #formMessage {
-    background: rgba(0, 0, 0, 0.15);
+    background-color: #223242;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -203,26 +202,45 @@ h1, h2 {
 }
 
 #input {
-    height: 10vh;
-    width: 80vw;
+    position: absolute;
+    top: 2vh;
+    left: 5vw;
+    height: 6vh;
+    width: 70vw;
     border: none;
+    outline: none;
     font-size: 2vh;
-    background-color: #ececec;
+    background-color: #385266;
+    border-radius: 30vh;
+    color: #FFFFFF;
+    text-indent: 5vw;
 }
 
 #input:focus {
     outline: none;
 }
 
-#sendButton {
+#input::placeholder{
     position: relative;
+    font-size: 2vh;
+    color: dimgrey;
+}
+
+#sendButton {
+    position: absolute;
+    left: 80vw;
     height: 10vh;
     width: 20vw;
-    background-color: #385266;
-    font-size: 2vh;
+    background-color: #223242;
     outline: none;
     border: none;
     text-decoration: none;
+}
+
+#imgSend {
+    position: relative;
+    height: 4vh;
+    width: 4vh;
 }
 
 #messages {
@@ -325,6 +343,12 @@ h1, h2 {
 .imgGrav {
     height: 5vh;
     width: 5vh;
+    border-radius: 100vh;
+}
+
+.imgGravCompte {
+    height: 6vh;
+    width: 6vh;
     border-radius: 100vh;
 }
 

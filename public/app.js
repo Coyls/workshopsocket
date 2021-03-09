@@ -14,9 +14,9 @@ const message = document.querySelector("#message")
 people.innerHTML += `
     <div class="user">
         <div class="imgUser">
-            
+            <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
-        <h2 class="nameUser">Chat général</h2>
+        <h2 class="nameUser">General chat</h2>
     </div>
     `
 
@@ -31,7 +31,7 @@ headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
         
         </div>
-        <h2 class="titleMessage">Chat général</h2>
+        <h2 class="titleMessage">General chat</h2>
     `
 const backButton = document.querySelector("#backArrow")
 backButton.onclick = () => {
@@ -53,6 +53,7 @@ messages.onclick = () => {
 }
 
 
+
 // -------------------------------- connection -------------------------------- //
 
 let socket = io();
@@ -60,7 +61,7 @@ let login = {};
 
 let formLogin = document.querySelector('#formLogin');
 
-// Recuperation de l'id de l'utilisateur lors de ca conncetion
+// Recuperation de l'id de l'utilisateur lors de ca connection
 socket.on('userId', id => {
     console.log(id)
     login.userId = id
@@ -79,7 +80,16 @@ formLogin.addEventListener('submit', (e) => {
 
 
     socket.emit('user', login)
+
+    const imgCompte = document.querySelector("#imgCompte")
+    imgCompte.innerHTML += `
+    <img src="https://gravatar.com/avatar/${hash}" alt="imageCompte" class="imgGravCompte">
+    `
+
+    const nameCompte = document.querySelector("#nameCompte")
+    nameCompte.innerHTML += `${name}`
 })
+
 
 // ---------------------------------------------- Message ---------------------------------------------- //
 
@@ -103,7 +113,7 @@ formMessage.addEventListener('submit', function (e) {
     }
 });
 
-// Structure et positionement du message -----------------------------------
+// Structure et positionnement du message -----------------------------------
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
     // Position
@@ -125,7 +135,7 @@ socket.on('chat message', function (msg) {
 
 });
 
-// Message de connection et de deconnection -----------------------------------------
+// Message de connection et de déconnexion -----------------------------------------
 socket.on('connect message', function (msg) {
     let item = document.createElement('li');
     item.classList.add("connectionMessage")
