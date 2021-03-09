@@ -331,9 +331,9 @@ h1, h2 {
 .imgGravParticipant {
     position: relative;
     top: 2vh;
-    left: 4.5vw;
+    left: 5vw;
     height: 5vh;
-    width: 11vw;
+    width: 5vh;
     border-radius: 100vh;
 
 }
