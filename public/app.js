@@ -37,6 +37,10 @@ backButton.onclick = () => {
     people.style.left = "0"
 }
 
+const group = document.querySelector("#group")
+group.onclick = () => {
+
+}
 
 // -------------------------------- connection -------------------------------- //
 
