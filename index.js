@@ -27,9 +27,9 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('connect message', () => {
+    socket.on('disconnect', () => {
         const index = users.findIndex(user => user.userId === socket.id)
-        io.emit('chat message', ` ${users[index].name} viens de ce deconnecter`)
+        io.emit('connect message', ` ${users[index].name} viens de ce deconnecter`)
         users.splice(index, 1)
 
     })
