@@ -29,8 +29,11 @@ io.on('connection', (socket) => {
 
     socket.on('chat message', msg => {
         io.emit('chat message', msg);
-
     });
+
+    socket.on('isWriting', login => {
+        io.emit('isWriting', login)
+    })
 
 
     socket.on('disconnect', () => {
@@ -44,6 +47,7 @@ io.on('connection', (socket) => {
         io.emit('participants' , users)
     })
 });
+
 
 http.listen(port, () => {
     console.log(`Socket.IO server running at http://localhost:${port}/`);
