@@ -1,5 +1,4 @@
-// ----- timer ---- //
-
+// ----- Fonction timer ---- //
 const wait = (delay) => {
     return new Promise((resolve => {
         setTimeout(() => {
@@ -61,11 +60,13 @@ let login = {};
 
 let formLogin = document.querySelector('#formLogin');
 
+// Recuperation de l'id de l'utilisateur lors de ca conncetion
 socket.on('userId', id => {
     console.log(id)
     login.userId = id
 })
 
+// S’authentifier avec un pseudo et e-mail
 formLogin.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(e.target)
@@ -78,41 +79,40 @@ formLogin.addEventListener('submit', (e) => {
 
 
     socket.emit('user', login)
-
-    // ajouter la disparition SI l'utilisateur est deja ajouter / Viens d'etre ajouter
 })
 
-// ------------------------------- Message ------------------------------- //
+// ---------------------------------------------- Message ---------------------------------------------- //
 
 let formMessage = document.getElementById('formMessage');
 let input = document.getElementById('input');
 
+// Contenu des message
 let messageFrame = {}
 
+// Envoie du message -----------------------------------------------------
 formMessage.addEventListener('submit', function (e) {
     e.preventDefault();
     messageFrame.user = login.name
     messageFrame.message = input.value
     messageFrame.image = login.image
     messageFrame.id = login.userId
+
     if (input.value) {
         socket.emit('chat message', messageFrame);
         input.value = '';
     }
-
-
 });
 
+// Structure et positionement du message -----------------------------------
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
+    // Position
     if (msg.id === login.userId) {
-        // item.classList.add("row-reverse")
         item.className = "row-reverse"
     } else {
-        // item.classList.add("row")
         item.className = "row"
     }
-
+    // Structure
     item.innerHTML += `
                 <div class="message-container">
                 <img alt="img_profil" src="${msg.image}" class="imgGrav">
@@ -120,12 +120,12 @@ socket.on('chat message', function (msg) {
                 <p class="message-text">: ${msg.message}</p>
                 </div>`
 
-    // item.textContent = msg;
     messages.appendChild(item);
     document.scrollTo(0, document.body.scrollHeight);
 
 });
 
+// Message de connection et de deconnection -----------------------------------------
 socket.on('connect message', function (msg) {
     let item = document.createElement('li');
     item.classList.add("connectionMessage")
@@ -134,6 +134,8 @@ socket.on('connect message', function (msg) {
     document.scrollTo(0, document.messages.scrollHeight);
 });
 
+
+// Liste des participant ---------------------------------------------------------------------------
 socket.on('participants', (users) => {
     console.log(users)
     let participants = document.querySelector("#participants")
@@ -149,13 +151,15 @@ socket.on('participants', (users) => {
     })
 })
 
-document.querySelector("#input").addEventListener('input', (e) => {
+
+// “pseudo est en train d’écrire” --------------------------------------------------------
+const isWriting = document.querySelector("#isWriting")
+
+input.addEventListener('input', (e) => {
     const test = e.target.value
     console.log(test)
     socket.emit('isWriting', login);
 })
-
-const isWriting = document.querySelector("#isWriting")
 
 socket.on('isWriting', (login) => {
     isWriting.innerHTML = `${login.name} ...`
