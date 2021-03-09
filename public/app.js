@@ -1,6 +1,6 @@
 // ------------------------------- interaction ------------------------------- //
-
 const people = document.querySelector("#people");
+const messages = document.querySelector("#messages")
 people.innerHTML += `
     <div class="user">
         <div class="imgUser">
@@ -54,7 +54,7 @@ formLogin.addEventListener('submit', (e) => {
 
     socket.emit('user', login)
 
-    // ajouter la disparition SI l'utilisateur est deja ajouter / Vien d'etre ajouter
+    // ajouter la disparition SI l'utilisateur est deja ajouter / Viens d'etre ajouter
 })
 
 // ------------------------------- Message ------------------------------- //
@@ -86,14 +86,14 @@ socket.on('chat message', function (msg) {
 
     // item.textContent = msg;
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight);
 });
 
 socket.on('connect message', function (msg) {
     let item = document.createElement('li');
     item.textContent = msg;
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight);
 });
 
 
