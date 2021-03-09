@@ -69,6 +69,7 @@ formMessage.addEventListener('submit', function (e) {
     messageFrame.user = login.name
     messageFrame.message = input.value
     messageFrame.image = login.image
+    messageFrame.id = login.userId
     if (input.value) {
         socket.emit('chat message', messageFrame);
         input.value = '';
@@ -79,6 +80,14 @@ formMessage.addEventListener('submit', function (e) {
 
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
+    if (msg.id === login.userId) {
+        // item.classList.add("row-reverse")
+        item.className = "row-reverse"
+    } else {
+        // item.classList.add("row")
+        item.className = "row"
+    }
+
     item.innerHTML += `
                 <img alt="img_profil" src="${msg.image}">
                 <p class="message-name">${msg.user}</p>

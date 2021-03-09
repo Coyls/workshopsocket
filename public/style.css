@@ -290,5 +290,19 @@ h1, h2 {
 
 }
 
+/*-------------------------------------- li message --------------------------------------- */
+
+#messages li {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
 
 
