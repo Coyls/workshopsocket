@@ -263,7 +263,7 @@ h1, h2 {
 
 #name {
     position: absolute;
-    top: 89vh;
+    top: 69vh;
     left: 0;
     height: 5vh;
     width: 60vw;
@@ -274,7 +274,7 @@ h1, h2 {
 
 #email {
     position: absolute;
-    top: 95vh;
+    top: 75vh;
     left: 0;
     height: 5vh;
     width: 60vw;
@@ -289,7 +289,7 @@ h1, h2 {
 
 #sendForm {
     position: absolute;
-    top: 89vh;
+    top: 69vh;
     left: 60vw;
     height: 11vh;
     width: 40vw;

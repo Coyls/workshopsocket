@@ -141,7 +141,7 @@ socket.on('connect message', function (msg) {
     item.classList.add("connectionMessage")
     item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.messages.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight);
 });
 
 
