@@ -9,13 +9,6 @@ app.get('/', (req, res) => {
 
 let users = [];
 
-/*const user = [
-    {
-        name: "Yohan",
-        email: "yohan_quinquis@icloud.com"
-    },
-]*/
-
 io.on('connection', (socket) => {
     console.log(socket.id)
     socket.emit('userId', socket.id)
@@ -25,7 +18,7 @@ io.on('connection', (socket) => {
         users.push(login)
         console.log(login)
         // io.emit('user', users);
-        io.emit('chat message', `${login.name} viens de ce connecter`)
+        io.emit('connect message', `${login.name} viens de ce connecter`)
     })
 
     socket.on('chat message', msg => {
@@ -34,7 +27,7 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('disconnect', () => {
+    socket.on('connect message', () => {
         const index = users.findIndex(user => user.userId === socket.id)
         io.emit('chat message', ` ${users[index].name} viens de ce deconnecter`)
         users.splice(index, 1)
