@@ -315,7 +315,7 @@ h1, h2 {
     left: 101vw;
     height: 80vh;
     width: 20vw;
-    background: #f1f1f1;
+    background-color: #ececec;
 }
 
 .noPointList {
