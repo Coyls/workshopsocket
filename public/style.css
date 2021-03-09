@@ -139,6 +139,7 @@ h1, h2 {
     height: 100vh;
     width: 100vw;
     background-color: #ffffff;
+    overflow: hidden;
 }
 
 #headerMessage{
@@ -230,6 +231,7 @@ h1, h2 {
     font-size: 3vh;
     height: 90vh;
     overflow: scroll;
+
 }
 
 #messages > li {
