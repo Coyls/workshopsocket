@@ -86,7 +86,7 @@ socket.on('chat message', function (msg) {
 
     // item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight+item);
 
 });
 
@@ -94,7 +94,7 @@ socket.on('connect message', function (msg) {
     let item = document.createElement('li');
     item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight+item);
 });
 
 socket.on('participants', (users) => {
@@ -108,10 +108,7 @@ socket.on('participants', (users) => {
                 <img alt="img_profil" src="${user.image}">
                 <p>${user.name}</p>
             </li>`
-
     })
-
-
 })
 
 
