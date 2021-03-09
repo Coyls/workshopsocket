@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
             users.splice(index, 1)
         }
 
-
+        io.emit('participants' , users)
     })
 });
 

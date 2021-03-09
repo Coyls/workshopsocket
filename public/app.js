@@ -99,6 +99,19 @@ socket.on('connect message', function (msg) {
 
 socket.on('participants', (users) => {
     console.log(users)
+    let participants = document.querySelector("#participants")
+    participants.innerHTML = ""
+
+    users.forEach(user => {
+        participants.innerHTML += `
+            <li id="${user.userId}">
+                <img alt="img_profil" src="${user.image}">
+                <p>${user.name}</p>
+            </li>`
+
+    })
+
+
 })
 
 
