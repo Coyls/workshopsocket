@@ -1,3 +1,13 @@
+// ----- timer ---- //
+
+const wait = (delay) => {
+    return new  Promise((resolve => {
+        setTimeout(() => {
+            resolve();
+        },delay)
+    }))
+}
+
 // ------------------------------- interaction ------------------------------- //
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
@@ -89,9 +99,11 @@ socket.on('chat message', function (msg) {
     }
 
     item.innerHTML += `
+                <div class="message-container">
                 <img alt="img_profil" src="${msg.image}">
                 <p class="message-name">${msg.user}</p>
-                <p class="message-text">: ${msg.message}</p>`
+                <p class="message-text">: ${msg.message}</p>
+                </div>`
 
     // item.textContent = msg;
     messages.appendChild(item);
@@ -117,10 +129,22 @@ socket.on('participants', (users) => {
                 <img alt="img_profil" src="${user.image}">
                 <p>${user.name}</p>
             </li>`
-
     })
+})
 
+document.querySelector("#input").addEventListener('input', (e) => {
+    const test = e.target.value
+    console.log(test)
+    socket.emit('isWriting', login);
+})
 
+const isWriting = document.querySelector("#isWriting")
+
+socket.on('isWriting', (login) => {
+    isWriting.innerHTML = `${login.name} est en train d'écrire`
+    wait(4000).then(() => {
+        isWriting.innerHTML = ''
+    })
 })
 
 

@@ -291,6 +291,10 @@ h1, h2 {
 }
 
 /*-------------------------------------- li message --------------------------------------- */
+.message-container {
+    display: flex;
+    flex-direction: row;
+}
 
 #messages li {
     display: flex;
