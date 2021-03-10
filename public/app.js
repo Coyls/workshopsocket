@@ -13,19 +13,36 @@ const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
 const loginPage = document.querySelector("#loginPage")
 people.innerHTML += `
-    <div class="user">
+    <div class="user" id="generalChat">
         <div class="imgUser">
             <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
         <h2 class="nameUser">General chat</h2>
     </div>
-    `
+    <div class="user" id="test">
+        <div class="imgUser">
+            <img src="image/chat.svg" alt="chat" class="imgGrav">
+        </div>
+        <h2 class="nameUser">Test</h2>`
 
-const chatGeneral = document.querySelector('.user')
-chatGeneral.onclick = () => {
-    people.style.left = "-100vw"
-    people.style.transition = "all, 0.5s"
-}
+const chatGeneral = document.querySelectorAll('.user')
+chatGeneral.forEach(chat => {
+    chat.onclick = (e) => {
+        people.style.left = "-100vw"
+        people.style.transition = "all, 0.5s"
+
+        const roomId = chat.id
+
+        if (login.room !== roomId) {
+
+            socket.emit('changeRoom', roomId, login);
+            login.room = roomId
+            messages.innerHTML = ""
+
+        }
+    }
+})
+
 
 const headerMessage = document.querySelector("#headerMessage")
 headerMessage.innerHTML += `
@@ -68,7 +85,7 @@ let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
 socket.on('userId', (id,room) => {
-    console.log(id)
+    // console.log(id)
     login.userId = id
     login.room = room
 })
@@ -154,7 +171,7 @@ socket.on('connect message', function (msg) {
 
 ////////////////////////////////////////////Liste participant/////////////////////////////////////////////////
 socket.on('participants', (users) => {
-    console.log(users)
+    // console.log(users)
     let participants = document.querySelector("#participants")
     participants.innerHTML = ""
 

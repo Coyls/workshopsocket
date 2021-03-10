@@ -19,6 +19,7 @@ io.on('connection', (socket) => {
     socket.emit('userId', socket.id, "general Chat")
     socket.join('general Chat');
 
+    // console.log(socket)
 
     socket.on('user', login => {
         users.push(login)
@@ -34,6 +35,15 @@ io.on('connection', (socket) => {
     socket.on('isWriting', login => {
         io.to(login.room).emit('isWriting', login)
     })
+
+
+    socket.on('changeRoom', (roomId,login) => {
+            socket.join(roomId);
+            if (login.room !== -1 ) {
+                socket.leave(login.room)
+            }
+
+        })
 
 
     socket.on('disconnect', () => {
