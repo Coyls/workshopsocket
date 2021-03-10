@@ -137,7 +137,7 @@ socket.on('chat message', function (msg) {
                 </div>`
 
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight);
 
 });
 
@@ -147,7 +147,7 @@ socket.on('connect message', function (msg) {
     item.classList.add("connectionMessage")
     item.textContent = msg;
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
+    document.scrollTo(0, document.body.scrollHeight);
 });
 
 
