@@ -263,7 +263,7 @@ h1, h2 {
     height: 12.5vh;
     width: 100vw;
     font-size: 2vh;
-    background-color: #ececec;
+    background-color: #223242;
     z-index: 4;
 }
 
@@ -282,7 +282,6 @@ h1, h2 {
     height: 5vh;
     width: 5vh;
     border-radius: 100vh;
-    background-color: purple;
 }
 
 .titleMessage {
@@ -291,7 +290,7 @@ h1, h2 {
     left: 30vw;
     width: 60vw;
     font-size: 3.5vh;
-    color: #223242;
+    color: #FFFFFF;
     font-family: Poppins, serif;
     overflow: hidden;
 }
@@ -405,12 +404,14 @@ h1, h2 {
 
 /*-------------------------------------- li message --------------------------------------- */
 
-.messageMain {
-
+.messageMainDroite {
+    position: relative;
+    right: 0;
 }
 
-.name-container {
+.name-containerDroite {
     position: relative;
+    right: -10vw;
     justify-content: flex-end;
     height: 5.5vh;
     width: 60vw;
@@ -419,7 +420,8 @@ h1, h2 {
 }
 
 .message-name {
-    margin-right: 2vw;
+    margin-right: 1vh;
+    margin-left: 1vh;
     font-family: Poppins, serif;
     font-size: 3vh;
     color: #223242;
@@ -432,22 +434,24 @@ h1, h2 {
     border-radius: 100vh;
 }
 
-.messageBulle {
+.messageBulleDroite {
     position: relative;
     height: auto;
-    background-color: #223242;
+    width: 70vw;
     justify-content: flex-end;
     display: flex;
     flex-direction: row;
-    border-radius: 2vh;
-    word-break: break-all;
-    text-indent: 2vw;
+    border-radius: 1vh;
+    word-break: break-word;
 }
 
-.message-text {
+.message-textDroite {
     font-size: 3vh;
-    color: #FFFFFF;
-    text-indent: 2vw;
+    color: #223242;
+    font-family: Poppins, serif;
+    padding: 2vh;
+    background-color: lightgray;
+    border-radius: 1vh;
 }
 
 #messages li {
@@ -463,16 +467,51 @@ h1, h2 {
 }
 
 
+.messageMainGauche {
+    position: relative;
+    left: 0;
+}
+
+.name-containerGauche {
+    position: relative;
+    justify-content: flex-start;
+    height: 5.5vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.messageBulleGauche {
+    position: relative;
+    height: auto;
+    width: 70vw;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    border-radius: 1vh;
+    word-break: break-word;
+}
+
+.message-textGauche {
+    font-size: 3vh;
+    color: #FFFFFF;
+    font-family: Poppins, serif;
+    padding: 2vh;
+    background-color: #223242;
+    border-radius: 1vh;
+}
+
+
 
 /*------------------------------------------ Group --------------------------------------------*/
 
 #groupUser {
     position: absolute;
     top: 12.5vh;
-    left: 101vw;
-    height: 80vh;
+    left: 100vw;
+    height: 77.5vh;
     width: 20vw;
-    background-color: #ececec;
+    background-color: lightgray;
 }
 
 .noPointList {

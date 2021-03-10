@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 app.use(express.static('public'))
 
 let users = []
-let rooms = ["generalChat", "test"]
+let rooms = ["Chat room 1", "Chat room 2"]
 
 io.on('connection', (socket) => {
     console.log(socket.id)
@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
         users[index].room = roomId
         console.log(users)
 
-        // -- A refactor car dupliqur -- //
+        // -- A refactor car dupliquer -- //
         let userInSameRoom = []
         let userInLastRoom = []
 
@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
         })
 
         io.to(login.room).emit('participants', userInLastRoom)
-        io.to(login.room).emit('connect message', `${login.name} vient de se deconnecter de ${login.room}`)
+        io.to(login.room).emit('connect message', `${login.name} vient de se déconnecter de ${login.room}`)
         io.to(roomId).emit('participants', userInSameRoom)
         io.to(roomId).emit('connect message', `${login.name} vient de se connecter dans ${roomId}`)
         // ---------------------------------- //

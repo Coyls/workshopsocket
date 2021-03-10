@@ -49,7 +49,7 @@ chatGeneral.forEach(chat => {
 const headerMessage = document.querySelector("#headerMessage")
 headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
-        
+            <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
         <h2 class="titleMessage"></h2>`
 const titleMessage = document.querySelector(".titleMessage")
@@ -90,7 +90,7 @@ let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
 
-socket.on('userId', (id,rooms) => {
+socket.on('userId', (id, rooms) => {
     // console.log(id)
     login.userId = id
     login.room = rooms[0]
@@ -155,23 +155,28 @@ socket.on('chat message', function (msg) {
     // Structure
     if (msg.id === login.userId) {
         item.innerHTML += `
-                <div class="messageMain">
-                    <div class="name-container">
-                    <p class=" message-name">${msg.user}</p> 
-                    <img alt="img_profil" src="${msg.image}" class="imgGravMessage"> 
-                </div>
-                <div class="messageBulle">
-                    <p class="message-text">${msg.message} </p>
-                </div>
+                <div class="messageMainDroite">
+                    <div class="name-containerDroite">
+                        <p class=" message-name">${msg.user}</p> 
+                        <img alt="img_profil" src="${msg.image}" class="imgGravMessage"> 
+                    </div>
+                    <div class="messageBulleDroite">
+                        <p class="message-textDroite">${msg.message} </p>
+                    </div>
                 </div>
                 `
     } else {
         item.innerHTML += `
-                <div class="message-container">
-                <img alt="img_profil" src="${msg.image}" class="imgGraMessage">
-                <p class=" message-name">${msg.user}</p>
-                <p class="message-text">: ${msg.message}</p>
-                </div>`
+                <div class="messageMainGauche">
+                    <div class="name-containerGauche">
+                        <img alt="img_profil" src="${msg.image}" class="imgGravMessage"> 
+                        <p class=" message-name">${msg.user}</p>
+                    </div>
+                    <div class="messageBulleGauche">
+                        <p class="message-textGauche">${msg.message} </p>
+                    </div>
+                </div>
+                `
     }
 
 
