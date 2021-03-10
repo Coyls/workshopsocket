@@ -210,7 +210,7 @@ h1, h2 {
 }
 
 .user {
-    position: absolute;
+    position: relative;
     top: 25vh;
     left: 0;
     height: 12vh;
