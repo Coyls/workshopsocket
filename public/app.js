@@ -32,8 +32,8 @@ headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
         
         </div>
-        <h2 class="titleMessage">General chat</h2>
-    `
+        <h2 class="titleMessage">General chat</h2>`
+
 const backButton = document.querySelector("#backArrow")
 backButton.onclick = () => {
     people.style.left = "0"
@@ -137,7 +137,7 @@ socket.on('chat message', function (msg) {
                 </div>`
 
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight);
+    messages.scrollTop = messages.scrollHeight
 
 });
 
