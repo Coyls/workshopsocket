@@ -62,9 +62,10 @@ let login = {};
 let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
-socket.on('userId', id => {
+socket.on('userId', (id,room) => {
     console.log(id)
     login.userId = id
+    login.room = room
 })
 
 // S’authentifier avec un pseudo et e-mail
@@ -78,16 +79,15 @@ formLogin.addEventListener('submit', (e) => {
     login.mail = mail
     login.image = `https://gravatar.com/avatar/${hash}`
 
-
     socket.emit('user', login)
 
     const imgCompte = document.querySelector("#imgCompte")
     imgCompte.innerHTML += `
     <img src="https://gravatar.com/avatar/${hash}" alt="imageCompte" class="imgGravCompte">
     `
-
     const nameCompte = document.querySelector("#nameCompte")
     nameCompte.innerHTML += `${name}`
+
 })
 
 
@@ -106,6 +106,7 @@ formMessage.addEventListener('submit', function (e) {
     messageFrame.message = input.value
     messageFrame.image = login.image
     messageFrame.id = login.userId
+    messageFrame.room = login.room
 
     if (input.value) {
         socket.emit('chat message', messageFrame);

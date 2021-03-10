@@ -16,23 +16,23 @@ let users = [];
 
 io.on('connection', (socket) => {
     console.log(socket.id)
-    socket.emit('userId', socket.id)
+    socket.emit('userId', socket.id, "generalChat")
+    socket.join('generalChat');
 
 
     socket.on('user', login => {
         users.push(login)
         console.log(login)
-        // io.emit('user', users);
-        io.emit('participants' , users)
-        io.emit('connect message', `${login.name} vient de se connecter`)
+        io.to(login.room).emit('participants' , users)
+        io.to(login.room).emit('connect message', `${login.name} vient de se connecter dans ${login.room}`)
     })
 
     socket.on('chat message', msg => {
-        io.emit('chat message', msg);
+        io.to(msg.room).emit('chat message', msg);
     });
 
     socket.on('isWriting', login => {
-        io.emit('isWriting', login)
+        io.to(login.room).emit('isWriting', login)
     })
 
 
@@ -40,11 +40,11 @@ io.on('connection', (socket) => {
         const index = users.findIndex(user => user.userId === socket.id)
 
         if (index !== -1) {
-            io.emit('connect message', ` ${users[index].name} vient de se déconnecter`)
+            io.to(users[index].room).emit('connect message', ` ${users[index].name} vient de se déconnecter de ${users[index].room}`)
             users.splice(index, 1)
         }
 
-        io.emit('participants' , users)
+        io.to(users[index].room).emit('participants' , users)
     })
 });
 
