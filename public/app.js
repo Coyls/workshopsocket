@@ -11,6 +11,7 @@ const wait = (delay) => {
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
+const mainMessage = document.querySelector("#mainMessage")
 people.innerHTML += `
     <div class="user">
         <div class="imgUser">
@@ -173,7 +174,7 @@ input.addEventListener('input', (e) => {
 })
 
 socket.on('isWriting', (login) => {
-    isWriting.innerHTML = `${login.name} ...`
+    isWriting.innerHTML = `${login.name} <img src="https://media.giphy.com/media/VeerK4hE9sjoB8e6OQ/giphy.gif" alt="isTyping">`
     wait(4000).then(() => {
         isWriting.innerHTML = ''
     })

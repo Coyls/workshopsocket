@@ -141,6 +141,7 @@ h1, h2 {
     overflow: hidden;
 }
 
+
 #headerMessage {
     position: fixed;
     top: 0;
@@ -186,6 +187,14 @@ h1, h2 {
     right: 5vw;
     height: 4.5vh;
     width: 4.5vh;
+}
+
+#mainMessage {
+    position: absolute;
+    top: 12.5vh;
+    left: 0;
+    height: 77.6vh;
+    width: 100vw;
 }
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -249,11 +258,22 @@ h1, h2 {
     margin: 0;
     padding: 0;
     font-size: 3vh;
-    top: 12.5vh;
-    height: 90vh;
+    top: 0;
+    height: 77.5vh;
     overflow: scroll;
     z-index: 0;
+}
 
+#isWriting {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 3vh;
+    top: -5vh;
+    height: 77.5vh;
+    overflow: scroll;
+    z-index: 0;
 }
 
 #messages > li {
