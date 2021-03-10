@@ -90,7 +90,7 @@ let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
 
-socket.on('userId', (id,rooms) =>
+socket.on('userId', (id,rooms) => {
     // console.log(id)
     login.userId = id
     login.room = rooms[0]
