@@ -11,7 +11,7 @@ const wait = (delay) => {
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
-const mainMessage = document.querySelector("#mainMessage")
+const loginPage = document.querySelector("#loginPage")
 people.innerHTML += `
     <div class="user">
         <div class="imgUser">
@@ -53,6 +53,10 @@ messages.onclick = () => {
     message.style.left = "0vw"
 }
 
+const sendLogin = document.querySelector("#sendForm")
+sendLogin.onclick = () => {
+    loginPage.style.display = "none"
+}
 
 
 // -------------------------------- connection -------------------------------- //

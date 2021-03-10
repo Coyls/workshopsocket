@@ -40,11 +40,11 @@ io.on('connection', (socket) => {
         const index = users.findIndex(user => user.userId === socket.id)
 
         if (index !== -1) {
+            io.to(users[index].room).emit('participants' , users)
             io.to(users[index].room).emit('connect message', ` ${users[index].name} vient de se déconnecter de ${users[index].room}`)
             users.splice(index, 1)
         }
 
-        io.to(users[index].room).emit('participants' , users)
     })
 });
 

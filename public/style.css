@@ -8,6 +8,104 @@ body {
     width: 100vw;
 }
 
+/*---------------------------------------------Login Page-----------------------------------------*/
+
+#loginPage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(227, 227, 227);
+    z-index: 5;
+}
+
+#loginDiv {
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+    height: 60vh;
+    width: 80vw;
+    background-color: #223242;
+    border-radius: 1vh;
+}
+
+#loginTitle {
+    position: absolute;
+    top: 2vh;
+    left: 25vw;
+    font-size: 5vh;
+    font-family: Poppins, serif;
+    color: #FFFFFF;
+}
+
+#name {
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+    height: 5vh;
+    width: 60vw;
+    font-size: 3vh;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    border-bottom: 0.2vh solid #FFFFFF;
+    background-color: #223242;
+    color: #FFFFFF;
+    text-indent: 1vw;
+}
+
+#email {
+    position: absolute;
+    top: 30vh;
+    left: 10vw;
+    height: 5vh;
+    width: 60vw;
+    font-size: 3vh;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    border-bottom: 0.2vh solid #FFFFFF;
+    background-color: #223242;
+    color: #FFFFFF;
+    text-indent: 1vw;
+}
+
+#name:focus, #email:focus {
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    transition: background-color 5000s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+#sendForm {
+    position: absolute;
+    top: 40vh;
+    left: 15vw;
+    height: 9vh;
+    width: 50vw;
+    font-size: 5vh;
+    outline: none;
+    border: none;
+    color: #FFFFFF;
+    font-family: Poppins, serif;
+    background-color: #223242;
+}
+
+#sendForm:hover {
+    background-color: #FFFFFF;
+    color: #385266;
+    cursor: pointer;
+
+}
+
+/*---------------------------------------------People----------------------------------------------*/
+
 #people {
     position: fixed;
     top: 0;
@@ -131,6 +229,9 @@ h1, h2 {
     overflow: hidden;
 }
 
+/*---------------------------------------------Message---------------------------------------------*/
+
+
 #message {
     position: absolute;
     top: 0;
@@ -197,7 +298,14 @@ h1, h2 {
     width: 100vw;
 }
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.connectionMessage {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    color: dimgrey;
+    font-size: 2vh;
+    opacity: 0.7;
+}
 
 #formMessage {
     background-color: #223242;
@@ -281,52 +389,6 @@ h1, h2 {
     z-index: 1;
 }
 
-#name {
-    position: absolute;
-    top: 69vh;
-    left: 0;
-    height: 5vh;
-    width: 60vw;
-    font-size: 3vh;
-    outline: none;
-    border: none;
-}
-
-#email {
-    position: absolute;
-    top: 75vh;
-    left: 0;
-    height: 5vh;
-    width: 60vw;
-    font-size: 3vh;
-    outline: none;
-    border: none;
-}
-
-#name:focus, #email:focus {
-    outline: none;
-}
-
-#sendForm {
-    position: absolute;
-    top: 69vh;
-    left: 60vw;
-    height: 11vh;
-    width: 40vw;
-    font-size: 5vh;
-    outline: none;
-    border: none;
-    color: #FFFFFF;
-    font-family: Poppins, serif;
-    background-color: #223242;
-}
-
-#sendForm:hover {
-    background-color: #385266;
-    cursor: pointer;
-
-}
-
 /*-------------------------------------- li message --------------------------------------- */
 .message-container {
     display: flex;
@@ -389,13 +451,4 @@ h1, h2 {
     text-align: center;
     font-size: 1.5vh;
     font-family: Poppins, serif;
-}
-
-.connectionMessage {
-    position: relative;
-    justify-content: center;
-    text-align: center;
-    color: dimgrey;
-    font-size: 2vh;
-    opacity: 0.7;
 }
