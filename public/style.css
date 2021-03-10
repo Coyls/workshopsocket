@@ -17,7 +17,7 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: rgb(227, 227, 227);
-    z-index: 5;
+    z-index: 999;
 }
 
 #loginDiv {
@@ -114,7 +114,7 @@ input:-webkit-autofill:active  {
     width: 100vw;
     background-color: #223242;
     overflow: hidden;
-    z-index: 1;
+    z-index: 5;
 }
 
 h1, h2 {
@@ -251,7 +251,7 @@ h1, h2 {
     width: 100vw;
     font-size: 2vh;
     background-color: #ececec;
-    z-index: 3;
+    z-index: 4;
 }
 
 #backArrow {
