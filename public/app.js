@@ -84,7 +84,7 @@ let login = {};
 let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
-socket.on('userId', (id,room) => {
+socket.on('userId', (id, room) => {
     // console.log(id)
     login.userId = id
     login.room = room
@@ -146,12 +146,27 @@ socket.on('chat message', function (msg) {
         item.className = "row"
     }
     // Structure
-    item.innerHTML += `
+    if (msg.id === login.userId) {
+        item.innerHTML += `
+                <div class="messageMain">
+                    <div class="name-container">
+                    <p class=" message-name">${msg.user}</p> 
+                    <img alt="img_profil" src="${msg.image}" class="imgGravMessage"> 
+                </div>
+                <div class="messageBulle">
+                    <p class="message-text">${msg.message} </p>
+                </div>
+                </div>
+                `
+    } else {
+        item.innerHTML += `
                 <div class="message-container">
-                <img alt="img_profil" src="${msg.image}" class="imgGrav">
+                <img alt="img_profil" src="${msg.image}" class="imgGraMessage">
                 <p class=" message-name">${msg.user}</p>
                 <p class="message-text">: ${msg.message}</p>
                 </div>`
+    }
+
 
     messages.appendChild(item);
     messages.scrollTop = messages.scrollHeight
