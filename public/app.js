@@ -12,6 +12,7 @@ const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
 const loginPage = document.querySelector("#loginPage")
+
 people.innerHTML += `
     <div class="user" id="generalChat">
         <div class="imgUser">
@@ -38,8 +39,9 @@ chatGeneral.forEach(chat => {
             socket.emit('changeRoom', roomId, login);
             login.room = roomId
             messages.innerHTML = ""
-
         }
+
+        titleMessage.innerHTML = `${roomId}`
     }
 })
 
@@ -49,7 +51,9 @@ headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
         
         </div>
-        <h2 class="titleMessage">General chat</h2>`
+        <h2 class="titleMessage"></h2>`
+const titleMessage = document.querySelector(".titleMessage")
+
 
 const backButton = document.querySelector("#backArrow")
 backButton.onclick = () => {
@@ -80,14 +84,17 @@ sendLogin.onclick = () => {
 
 let socket = io();
 let login = {};
+let roomsClientSide = [];
 
 let formLogin = document.querySelector('#formLogin');
 
 // Recuperation de l'id de l'utilisateur lors de ca connection
-socket.on('userId', (id, room) => {
+
+socket.on('userId', (id,rooms) =>
     // console.log(id)
     login.userId = id
-    login.room = room
+    login.room = rooms[0]
+    roomsClientSide = rooms
 })
 
 // S’authentifier avec un pseudo et e-mail
@@ -184,19 +191,18 @@ socket.on('connect message', function (msg) {
 });
 
 
-////////////////////////////////////////////Liste participant/////////////////////////////////////////////////
-socket.on('participants', (users) => {
+// Liste des participant ---------------------------------------------------------------------------
+socket.on('participants', (userInSameRoom) => {
     // console.log(users)
     let participants = document.querySelector("#participants")
     participants.innerHTML = ""
 
-    users.forEach(user => {
+    userInSameRoom.forEach(user => {
         participants.innerHTML += `
                 <li id="${user.userId}" class="noPointList">
                     <img alt="img_profil" src="${user.image}" class="imgGravParticipant">
                     <p class="nameParticipant">${user.name}</p>
-                </li>
-          `
+                </li>`
     })
 })
 
