@@ -164,7 +164,7 @@ socket.on('connect message', function (msg) {
     item.classList.add("connectionMessage")
     item.textContent = msg;
     messages.appendChild(item);
-    document.scrollTo(0, document.body.scrollHeight);
+    messages.scrollTop = messages.scrollHeight
 });
 
 
@@ -187,18 +187,24 @@ socket.on('participants', (users) => {
 
 // “pseudo est en train d’écrire” --------------------------------------------------------
 const isWriting = document.querySelector("#isWriting")
+const sendButton = document.querySelector("#sendButton")
+const sendMessage = document.querySelector("#input")
+let test = false
 
 input.addEventListener('input', (e) => {
-    const test = e.target.value
-    // console.log(test)
+    const inputClick = e.target.value
+    console.log(inputClick)
     socket.emit('isWriting', login);
 })
 
 socket.on('isWriting', (login) => {
     isWriting.innerHTML = `${login.name} <img src="https://media.giphy.com/media/VeerK4hE9sjoB8e6OQ/giphy.gif" alt="isTyping">`
-    wait(4000).then(() => {
+    sendButton.onclick = () => {
         isWriting.innerHTML = ''
-    })
+    }
+    if (sendMessage.value === '') {
+        isWriting.innerHTML = ''
+    }
 
 })
 

@@ -16,8 +16,8 @@ let users = [];
 
 io.on('connection', (socket) => {
     console.log(socket.id)
-    socket.emit('userId', socket.id, "generalChat")
-    socket.join('generalChat');
+    socket.emit('userId', socket.id, "general Chat")
+    socket.join('general Chat');
 
     // console.log(socket)
 
