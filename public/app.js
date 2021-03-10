@@ -165,6 +165,7 @@ socket.on('chat message', function (msg) {
 });
 
 // Message de connection et de déconnexion -----------------------------------------
+
 socket.on('connect message', function (msg) {
     let item = document.createElement('li');
     item.classList.add("connectionMessage")
@@ -190,11 +191,11 @@ socket.on('participants', (userInSameRoom) => {
 })
 
 
-// “pseudo est en train d’écrire” --------------------------------------------------------
+////////////////////////////////////////////Is Typing/////////////////////////////////////////////////
+
 const isWriting = document.querySelector("#isWriting")
 const sendButton = document.querySelector("#sendButton")
 const sendMessage = document.querySelector("#input")
-let test = false
 
 input.addEventListener('input', (e) => {
     const inputClick = e.target.value
@@ -210,7 +211,6 @@ socket.on('isWriting', (login) => {
     if (sendMessage.value === '') {
         isWriting.innerHTML = ''
     }
-
 })
 
 
