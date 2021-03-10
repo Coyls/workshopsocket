@@ -11,38 +11,53 @@ body {
 /*---------------------------------------------Login Page-----------------------------------------*/
 
 #loginPage{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(227, 227, 227);
     z-index: 999;
 }
 
 #loginDiv {
     position: absolute;
-    top: 20vh;
-    left: 10vw;
     height: 60vh;
     width: 80vw;
+    padding: 20px;
     background-color: #223242;
     border-radius: 1vh;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 #loginTitle {
-    position: absolute;
-    top: 2vh;
-    left: 25vw;
+    margin-top: 1vh;
+    position: relative;
+    width: auto;
     font-size: 5vh;
     font-family: Poppins, serif;
     color: #FFFFFF;
+
+}
+
+#formLogin {
+    margin-top: 10vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 #name {
-    position: absolute;
-    top: 20vh;
-    left: 10vw;
+    position: relative;
     height: 5vh;
     width: 60vw;
     font-size: 3vh;
@@ -53,12 +68,11 @@ body {
     background-color: #223242;
     color: #FFFFFF;
     text-indent: 1vw;
+    margin-bottom: 4vh;
 }
 
 #email {
-    position: absolute;
-    top: 30vh;
-    left: 10vw;
+    position: relative;
     height: 5vh;
     width: 60vw;
     font-size: 3vh;
@@ -69,6 +83,7 @@ body {
     background-color: #223242;
     color: #FFFFFF;
     text-indent: 1vw;
+    margin-bottom: 3vh;
 }
 
 #name:focus, #email:focus {
@@ -84,9 +99,7 @@ input:-webkit-autofill:active  {
 }
 
 #sendForm {
-    position: absolute;
-    top: 40vh;
-    left: 15vw;
+    position: relative;
     height: 9vh;
     width: 50vw;
     font-size: 5vh;
