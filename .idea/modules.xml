@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../Travail/Gobelins B1/dev/Javascript/exercices/Modal/.idea/Modal.iml" filepath="$PROJECT_DIR$/../../Travail/Gobelins B1/dev/Javascript/exercices/Modal/.idea/Modal.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/restart_heroku.iml" filepath="$PROJECT_DIR$/.idea/restart_heroku.iml" />
     </modules>
   </component>

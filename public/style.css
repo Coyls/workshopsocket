@@ -251,6 +251,7 @@ h1, h2 {
     width: 100vw;
     font-size: 2vh;
     background-color: #ececec;
+    z-index: 3;
 }
 
 #backArrow {
