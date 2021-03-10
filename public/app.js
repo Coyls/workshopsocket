@@ -18,13 +18,13 @@ people.innerHTML += `
         <div class="imgUser">
             <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
-        <h2 class="nameUser">General chat</h2>
+        <h2 class="nameUser">Chat room 1</h2>
     </div>
     <div class="user" id="test">
         <div class="imgUser">
             <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
-        <h2 class="nameUser">Test</h2>`
+        <h2 class="nameUser">Chat room 2</h2>`
 
 const chatGeneral = document.querySelectorAll('.user')
 chatGeneral.forEach(chat => {
