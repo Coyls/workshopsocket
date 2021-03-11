@@ -372,17 +372,13 @@ stopRecordingButton.addEventListener("click", function () {
 
 playButton.addEventListener("click", function () {
     if (blob == null) {
+        console.log("Blob est null")
         return;
     }
 
     console.log(blob)
-
-    //let url = window.URL.createObjectURL(blob);
-    // let audio = new Audio(url);
-    // audio.play();
-
     socket.emit('audioMessage', blob,login);
-    //console.log(url)
+    blob = null;
 });
 
 function flattenArray(channelBuffer, recordingLength) {
