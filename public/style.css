@@ -118,7 +118,7 @@ input:-webkit-autofill:active  {
 }
 
 
-/*---------------------------------------------People----------------------------------------------*/
+/*------------------------------------------- Home page ---------------------------------------------*/
 
 #people {
     position: fixed;
@@ -499,8 +499,6 @@ h1, h2 {
     border-radius: 1vh;
 }
 
-
-
 /*------------------------------------------ Group --------------------------------------------*/
 
 #groupUser {
@@ -546,14 +544,6 @@ h1, h2 {
     font-size: 1.5vh;
     font-family: Poppins, serif;
 }
-
-/*
-audio {
-    display: block;
-    height: 4vh;
-    width: 50vw;
-}*/
-
 
 #footerMessage {
     position: relative;

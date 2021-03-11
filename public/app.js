@@ -1,5 +1,3 @@
-
-
 let leftchannel = [];
 let rightchannel = [];
 let recorder = null;
@@ -9,7 +7,7 @@ let sampleRate = 44100;
 let context = null;
 let blob = null;
 
-// ------------------------------- interaction ------------------------------- //
+// ------------------------------- Home page rooms ------------------------------- //
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
@@ -48,6 +46,8 @@ chatGeneral.forEach(chat => {
 })
 
 
+///////////////////////////////////Title room in header message/////////////////////////////////
+
 const headerMessage = document.querySelector("#headerMessage")
 headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
@@ -56,6 +56,7 @@ headerMessage.innerHTML += `
         <h2 class="titleMessage"></h2>`
 const titleMessage = document.querySelector(".titleMessage")
 
+//////////////////////////////////////////Transitions/////////////////////////////////////////////
 
 const backButton = document.querySelector("#backArrow")
 backButton.onclick = () => {
@@ -83,8 +84,8 @@ sendLogin.onclick = () => {
     loginPage.style.display = "none"
 }
 
+//////////////////////////////////////////Connexion/////////////////////////////////////////////
 
-// -------------------------------- connection -------------------------------- //
 
 let socket = io();
 let login = {};
@@ -147,7 +148,8 @@ formMessage.addEventListener('submit', function (e) {
     }
 });
 
-// test audio message ///////////////////////////////////////////////////////
+//////////////////////////////////////////Audio message//////////////////////////////////////////
+
 socket.on('audioMessage', (audioMessage, userFrom) => {
     console.log(audioMessage)
     console.log(userFrom.name)
@@ -168,14 +170,14 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
     }
     messages.scrollTop = messages.scrollHeight
 
-
     console.log(url)
 
     blobReceived = null
 
 })
 
-// Structure et positionnement du message -----------------------------------
+///////////////////////////////////Message à gauche ou droite//////////////////////////////////////////
+
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
     // Position
@@ -225,8 +227,8 @@ socket.on('connect message', function (msg) {
     messages.scrollTop = messages.scrollHeight
 });
 
+//////////////////////////////////////Liste participants//////////////////////////////////////////
 
-// Liste des participant ---------------------------------------------------------------------------
 socket.on('participants', (userInSameRoom) => {
     // console.log(users)
     let participants = document.querySelector("#participants")
@@ -250,7 +252,6 @@ const sendMessage = document.querySelector("#input")
 
 input.addEventListener('input', (e) => {
     const inputClick = e.target.value
-    console.log(inputClick)
     socket.emit('isWriting', login);
 })
 
