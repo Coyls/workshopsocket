@@ -7,6 +7,15 @@ const wait = (delay) => {
     }))
 }
 
+let leftchannel = [];
+let rightchannel = [];
+let recorder = null;
+let recordingLength = 0;
+let mediaStream = null;
+let sampleRate = 44100;
+let context = null;
+let blob = null;
+
 // ------------------------------- interaction ------------------------------- //
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
@@ -260,6 +269,122 @@ socket.on('isWriting', (login) => {
     }
 })
 
+////////////////////////////////////////////Micro//////////////////////////////////////////////////
+
+const divMicro = document.querySelector("#divMicro")
+
+let microOn = false
+
+divMicro.onclick = () => {
+
+    if (microOn) {
+        divMicro.innerHTML = `
+            <img src="image/microphone.svg" alt="microphone" class="imgMicro startAndStop" id="stopRecordingButton">
+        `
+        microOn = false
+
+        // stop recording
+        recorder.disconnect(context.destination);
+        mediaStream.disconnect(recorder);
+
+        // we flat the left and right channels down
+        // Float32Array[] => Float32Array
+        let leftBuffer = flattenArray(leftchannel, recordingLength);
+        let rightBuffer = flattenArray(rightchannel, recordingLength);
+        // we interleave both channels together
+        // [left[0],right[0],left[1],right[1],...]
+        let interleaved = interleave(leftBuffer, rightBuffer);
+
+        // we create our wav file
+        let buffer = new ArrayBuffer(44 + interleaved.length * 2);
+        let view = new DataView(buffer);
+
+        // RIFF chunk descriptor
+        writeUTFBytes(view, 0, 'RIFF');
+        view.setUint32(4, 44 + interleaved.length * 2, true);
+        writeUTFBytes(view, 8, 'WAVE');
+        // FMT sub-chunk
+        writeUTFBytes(view, 12, 'fmt ');
+        view.setUint32(16, 16, true); // chunkSize
+        view.setUint16(20, 1, true); // wFormatTag
+        view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+        view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+        view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+        view.setUint16(32, 4, true); // wBlockAlign
+        view.setUint16(34, 16, true); // wBitsPerSample
+        // data sub-chunk
+        writeUTFBytes(view, 36, 'data');
+        view.setUint32(40, interleaved.length * 2, true);
+
+        // write the PCM samples
+        let index = 44;
+        let volume = 1;
+        for (let i = 0; i < interleaved.length; i++) {
+            view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+            index += 2;
+        }
+
+        // our final blob
+        blob = new Blob([view], {type: 'audio/wav'});
+        if (blob == null) {
+            return;
+        }
+
+        socket.emit('audioMessage', blob, login);
+
+        leftchannel = []
+        rightchannel = []
+        recordingLength = 0
+
+
+    } else {
+        divMicro.innerHTML = `
+            <img src="image/stop.svg" alt="microphone" class="imgMicro startAndStop" id="startRecordingButton">
+        `
+        microOn = true
+
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+        navigator.getUserMedia(
+            {
+                audio: true
+            },
+            function (e) {
+
+                // creates the audio context
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                context = new AudioContext();
+
+                // creates an audio node from the microphone incoming stream
+                mediaStream = context.createMediaStreamSource(e);
+
+                // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+                // bufferSize: the onaudioprocess event is called when the buffer is full
+                let bufferSize = 2048;
+                let numberOfInputChannels = 2;
+                let numberOfOutputChannels = 2;
+                if (context.createScriptProcessor) {
+                    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                } else {
+                    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                }
+
+                recorder.onaudioprocess = function (e) {
+                    leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                    rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+                    recordingLength += bufferSize;
+                }
+
+                // we connect the recorder
+                mediaStream.connect(recorder);
+                recorder.connect(context.destination);
+            },
+            function (e) {
+                console.error(e);
+            });
+    }
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,125 +392,26 @@ socket.on('isWriting', (login) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-let startRecordingButton = document.getElementById("startRecordingButton");
-let stopRecordingButton = document.getElementById("stopRecordingButton");
-let playButton = document.getElementById("playButton");
+/* let startAndStop = document.querySelector(".startAndStop")
 
 
-let leftchannel = [];
-let rightchannel = [];
-let recorder = null;
-let recordingLength = 0;
-let volume = null;
-let mediaStream = null;
-let sampleRate = 44100;
-let context = null;
-let blob = null;
-
-startRecordingButton.addEventListener("click", function () {
+startAndStop.addEventListener("click", function (e) {
     // Initialize recorder
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    navigator.getUserMedia(
-        {
-            audio: true
-        },
-        function (e) {
-            console.log("user consent");
+    if (startAndStop.id === "startRecordingButton") {
 
-            // creates the audio context
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            context = new AudioContext();
 
-            // creates an audio node from the microphone incoming stream
-            mediaStream = context.createMediaStreamSource(e);
 
-            // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
-            // bufferSize: the onaudioprocess event is called when the buffer is full
-            let bufferSize = 2048;
-            let numberOfInputChannels = 2;
-            let numberOfOutputChannels = 2;
-            if (context.createScriptProcessor) {
-                recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-            } else {
-                recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-            }
 
-            recorder.onaudioprocess = function (e) {
-                leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-                rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
-                recordingLength += bufferSize;
-            }
-
-            // we connect the recorder
-            mediaStream.connect(recorder);
-            recorder.connect(context.destination);
-        },
-        function (e) {
-            console.error(e);
-        });
-});
-
-stopRecordingButton.addEventListener("click", function () {
-
-    // stop recording
-    recorder.disconnect(context.destination);
-    mediaStream.disconnect(recorder);
-
-    // we flat the left and right channels down
-    // Float32Array[] => Float32Array
-    let leftBuffer = flattenArray(leftchannel, recordingLength);
-    let rightBuffer = flattenArray(rightchannel, recordingLength);
-    // we interleave both channels together
-    // [left[0],right[0],left[1],right[1],...]
-    let interleaved = interleave(leftBuffer, rightBuffer);
-
-    // we create our wav file
-    let buffer = new ArrayBuffer(44 + interleaved.length * 2);
-    let view = new DataView(buffer);
-
-    // RIFF chunk descriptor
-    writeUTFBytes(view, 0, 'RIFF');
-    view.setUint32(4, 44 + interleaved.length * 2, true);
-    writeUTFBytes(view, 8, 'WAVE');
-    // FMT sub-chunk
-    writeUTFBytes(view, 12, 'fmt ');
-    view.setUint32(16, 16, true); // chunkSize
-    view.setUint16(20, 1, true); // wFormatTag
-    view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
-    view.setUint32(24, sampleRate, true); // dwSamplesPerSec
-    view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
-    view.setUint16(32, 4, true); // wBlockAlign
-    view.setUint16(34, 16, true); // wBitsPerSample
-    // data sub-chunk
-    writeUTFBytes(view, 36, 'data');
-    view.setUint32(40, interleaved.length * 2, true);
-
-    // write the PCM samples
-    let index = 44;
-    let volume = 1;
-    for (let i = 0; i < interleaved.length; i++) {
-        view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
-        index += 2;
     }
 
-    // our final blob
-    blob = new Blob([view], { type: 'audio/wav' });
-});
+    if (startAndStop.id === "stopRecordingButton") {
 
-playButton.addEventListener("click", function () {
-    if (blob == null) {
-        return;
+
     }
+})
+ sendButton.addEventListener("click", function () {
 
-    console.log(blob)
-
-    //let url = window.URL.createObjectURL(blob);
-    // let audio = new Audio(url);
-    // audio.play();
-
-    socket.emit('audioMessage', blob,login);
-    //console.log(url)
-});
+}); */
 
 function flattenArray(channelBuffer, recordingLength) {
     let result = new Float32Array(recordingLength);

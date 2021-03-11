@@ -117,6 +117,7 @@ input:-webkit-autofill:active  {
 
 }
 
+
 /*---------------------------------------------People----------------------------------------------*/
 
 #people {
@@ -332,9 +333,7 @@ h1, h2 {
 }
 
 #input {
-    position: absolute;
-    top: 2vh;
-    left: 5vw;
+    position: relative;
     height: 6vh;
     width: 70vw;
     border: none;
@@ -402,7 +401,6 @@ h1, h2 {
     z-index: 1;
 }
 
-/*-------------------------------------- li message --------------------------------------- */
 
 .messageMainDroite {
     position: relative;
@@ -555,3 +553,31 @@ audio {
     height: 4vh;
     width: 50vw;
 }*/
+
+
+#footerMessage {
+    position: relative;
+    top: 2vh;
+    left: 5vw;
+    height: 6vh;
+    width: 75vw;
+}
+
+#divMicro {
+    position: absolute;
+    top: 0;
+    right: 3vw;
+    height: 6vh;
+    width: 6vh;
+    border-radius: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: 3vw;
+}
+
+.imgMicro{
+    position: relative;
+    height: 3.5vh;
+    width: 3.5vh;
+}

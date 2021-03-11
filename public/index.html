@@ -63,11 +63,13 @@
 
     <form id="formMessage" action="">
         <label id="isWriting" for="input"></label>
-        <input name="toWriteMessage" id="input" autocomplete="off" placeholder="Type your message here"/>
+        <div id="footerMessage">
+            <input name="toWriteMessage" id="input" autocomplete="on" placeholder="Type your message here"/>
+            <div id="divMicro">
+                <img src="image/microphone.svg" alt="microphone" class="imgMicro startAndStop" id="startRecordingButton">
+            </div>
+        </div>
         <button id="sendButton"><img src="image/paper-plane.svg" alt="send" id="imgSend"></button>
-        <button id="startRecordingButton">Start recording</button>
-        <button id="stopRecordingButton">Stop recording</button>
-        <button id="playButton">Play</button>
     </form>
 
 
