@@ -299,6 +299,8 @@ startRecordingButton.addEventListener("click", function () {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
             context = new AudioContext();
 
+            console.log("context", context)
+
             // creates an audio node from the microphone incoming stream
             mediaStream = context.createMediaStreamSource(e);
 
@@ -339,12 +341,16 @@ stopRecordingButton.addEventListener("click", function () {
     let leftBuffer = flattenArray(leftchannel, recordingLength);
     let rightBuffer = flattenArray(rightchannel, recordingLength);
     // we interleave both channels together
+    console.log("leftBuffer", leftBuffer)
+    console.log("rightBuffer" , rightBuffer)
     // [left[0],right[0],left[1],right[1],...]
     let interleaved = interleave(leftBuffer, rightBuffer);
 
     // we create our wav file
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
     view = new DataView(buffer);
+
+    console.log("buffer",buffer )
 
     // RIFF chunk descriptor
     writeUTFBytes(view, 0, 'RIFF');
@@ -381,9 +387,10 @@ playButton.addEventListener("click", function () {
         return;
     }
 
-    console.log(blob)
+    console.log("blob" , blob)
+    console.log("view", view)
     socket.emit('audioMessage', blob,login);
-    context.close();
+   // context.close();
 
 });
 
