@@ -343,6 +343,7 @@ stopRecordingButton.addEventListener("click", function () {
 
     // we flat the left and right channels down
     // Float32Array[] => Float32Array
+
     let leftBuffer = flattenArray(leftchannel, recordingLength);
     let rightBuffer = flattenArray(rightchannel, recordingLength);
     // we interleave both channels together
@@ -391,6 +392,9 @@ playButton.addEventListener("click", function () {
     console.log("blob" , blob)
     console.log("view", view)
     socket.emit('audioMessage', blob,login);
+
+    leftchannel = []
+    rightchannel = []
 
 });
 
