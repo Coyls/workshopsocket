@@ -44,7 +44,6 @@ io.on('connection', (socket) => {
         io.to(login.room).emit('isWriting', login)
     })
 
-
     socket.on('changeRoom', (roomId, login) => {
         socket.join(roomId);
         socket.leave(login.room)
