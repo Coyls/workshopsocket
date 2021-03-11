@@ -156,7 +156,12 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
 
     let url = window.URL.createObjectURL(blob);
 
-    messages.innerHTML += `<li class="row"><audio controls src="${url}" ></audio></li>`
+    if (userFrom.userId === login.userId) {
+        messages.innerHTML += `<li class="row-reverse"><audio controls src="${url}" ></audio></li>`
+    } else {
+        messages.innerHTML += `<li class="row"><audio controls src="${url}" ></audio></li>`
+
+    }
     messages.scrollTop = messages.scrollHeight
 
 
