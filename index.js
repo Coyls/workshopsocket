@@ -73,6 +73,10 @@ io.on('connection', (socket) => {
         // ---------------------------------- //
     })
 
+    socket.on('audioMessage', (audioMessage, login) => {
+        io.to(login.room).emit('audioMessage', audioMessage, login)
+    })
+
 
     socket.on('disconnect', () => {
         const index = users.findIndex(user => user.userId === socket.id)
