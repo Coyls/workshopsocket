@@ -383,9 +383,7 @@ playButton.addEventListener("click", function () {
 
     console.log(blob)
     socket.emit('audioMessage', blob,login);
-    // audioCtx.close();
-
-    view = null;
+    context.close();
 
 });
 
