@@ -336,21 +336,22 @@ stopRecordingButton.addEventListener("click", function () {
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
 
+    console.log("recorder",recorder)
+    console.log("leftchanel",leftchannel)
+    console.log("rightchanel",rightchannel)
+
+
     // we flat the left and right channels down
     // Float32Array[] => Float32Array
     let leftBuffer = flattenArray(leftchannel, recordingLength);
     let rightBuffer = flattenArray(rightchannel, recordingLength);
     // we interleave both channels together
-    console.log("leftBuffer", leftBuffer)
-    console.log("rightBuffer" , rightBuffer)
     // [left[0],right[0],left[1],right[1],...]
     let interleaved = interleave(leftBuffer, rightBuffer);
 
     // we create our wav file
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
     view = new DataView(buffer);
-
-    console.log("buffer",buffer )
 
     // RIFF chunk descriptor
     writeUTFBytes(view, 0, 'RIFF');
@@ -390,7 +391,6 @@ playButton.addEventListener("click", function () {
     console.log("blob" , blob)
     console.log("view", view)
     socket.emit('audioMessage', blob,login);
-   // context.close();
 
 });
 
