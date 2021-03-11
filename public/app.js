@@ -74,6 +74,8 @@ messages.onclick = () => {
     message.style.left = "0vw"
 }
 
+///////////////////////////////////////Login///////////////////////////////////////////////////////
+
 const sendLogin = document.querySelector("#sendForm")
 sendLogin.onclick = () => {
     loginPage.style.display = "none"
