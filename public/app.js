@@ -1,11 +1,4 @@
-// ----- Fonction timer ---- //
-const wait = (delay) => {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            resolve();
-        }, delay)
-    }))
-}
+
 
 let leftchannel = [];
 let rightchannel = [];
@@ -37,7 +30,7 @@ people.innerHTML += `
 
 const chatGeneral = document.querySelectorAll('.user')
 chatGeneral.forEach(chat => {
-    chat.onclick = (e) => {
+    chat.onclick = () => {
         people.style.left = "-100vw"
         people.style.transition = "all, 0.5s"
 
@@ -159,13 +152,13 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
     console.log(audioMessage)
     console.log(userFrom.name)
 
-    let bufView = new Uint8Array(audioMessage);
+    let bufViewReceived = new Uint8Array(audioMessage);
 
-    console.log(bufView)
+    console.log(bufViewReceived)
 
-    const blob = new Blob([bufView], {type: "audio/wav"});
+    let blobReceived = new Blob([bufViewReceived], {type: "audio/wav"});
 
-    let url = window.URL.createObjectURL(blob);
+    let url = window.URL.createObjectURL(blobReceived);
 
     if (userFrom.userId === login.userId) {
         messages.innerHTML += `<li class="row-reverse"><audio controls src="${url}" ></audio></li>`
@@ -177,6 +170,8 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
 
 
     console.log(url)
+
+    blobReceived = null
 
 })
 
@@ -384,34 +379,6 @@ divMicro.onclick = () => {
     }
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/* let startAndStop = document.querySelector(".startAndStop")
-
-
-startAndStop.addEventListener("click", function (e) {
-    // Initialize recorder
-    if (startAndStop.id === "startRecordingButton") {
-
-
-
-
-    }
-
-    if (startAndStop.id === "stopRecordingButton") {
-
-
-    }
-})
- sendButton.addEventListener("click", function () {
-
-}); */
 
 function flattenArray(channelBuffer, recordingLength) {
     let result = new Float32Array(recordingLength);
