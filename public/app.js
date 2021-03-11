@@ -150,13 +150,13 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
     console.log(audioMessage)
     console.log(userFrom.name)
 
-    let bufView = new Uint8Array(audioMessage);
+    let bufViewReceived = new Uint8Array(audioMessage);
 
-    console.log(bufView)
+    console.log(bufViewReceived)
 
-    const blob = new Blob([bufView], {type: "audio/wav"});
+    let blobReceived = new Blob([bufViewReceived], {type: "audio/wav"});
 
-    let url = window.URL.createObjectURL(blob);
+    let url = window.URL.createObjectURL(blobReceived);
 
     if (userFrom.userId === login.userId) {
         messages.innerHTML += `<li class="row-reverse"><audio controls src="${url}" ></audio></li>`
@@ -168,6 +168,8 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
 
 
     console.log(url)
+
+    blobReceived = null
 
 })
 
@@ -380,7 +382,8 @@ playButton.addEventListener("click", function () {
 
     console.log(blob)
     socket.emit('audioMessage', blob,login);
-    blob = null;
+    // audioCtx.close();
+
 });
 
 function flattenArray(channelBuffer, recordingLength) {
