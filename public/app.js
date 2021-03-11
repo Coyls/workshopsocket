@@ -283,6 +283,7 @@ let mediaStream = null;
 let sampleRate = 44100;
 let context = null;
 let blob = null;
+let view = null;
 
 startRecordingButton.addEventListener("click", function () {
     // Initialize recorder
@@ -343,7 +344,7 @@ stopRecordingButton.addEventListener("click", function () {
 
     // we create our wav file
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
-    let view = new DataView(buffer);
+    view = new DataView(buffer);
 
     // RIFF chunk descriptor
     writeUTFBytes(view, 0, 'RIFF');
@@ -383,6 +384,8 @@ playButton.addEventListener("click", function () {
     console.log(blob)
     socket.emit('audioMessage', blob,login);
     // audioCtx.close();
+
+    view = null;
 
 });
 
