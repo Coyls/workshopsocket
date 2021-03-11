@@ -395,6 +395,7 @@ playButton.addEventListener("click", function () {
 
     leftchannel = []
     rightchannel = []
+    recordingLength = 0
 
 });
 
