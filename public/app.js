@@ -1,3 +1,4 @@
+// ----------------- Variable pour les audio ------------------------ //
 let leftchannel = [];
 let rightchannel = [];
 let recorder = null;
@@ -6,45 +7,49 @@ let mediaStream = null;
 let sampleRate = 44100;
 let context = null;
 let blob = null;
+// -------------------- Variable Socket ------------------ //
+let socket = io();
+let userData = {};
+let roomsClientSide = [];
 
 // ------------------------------- Home page rooms ------------------------------- //
 const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
 const loginPage = document.querySelector("#loginPage")
+// let chatGeneral = null
 
-people.innerHTML += `
-    <div class="user" id="generalChat">
+socket.on('roomCreation', rooms =>{
+    rooms.forEach(room => {
+        people.innerHTML += `
+    <div class="user" id="${room}">
         <div class="imgUser">
             <img src="image/chat.svg" alt="chat" class="imgGrav">
         </div>
-        <h2 class="nameUser">Chat room 1</h2>
-    </div>
-    <div class="user" id="test">
-        <div class="imgUser">
-            <img src="image/chat.svg" alt="chat" class="imgGrav">
-        </div>
-        <h2 class="nameUser">Chat room 2</h2>`
+        <h2 class="nameUser">${room}</h2>
+    </div>`
+    })
 
-const chatGeneral = document.querySelectorAll('.user')
-chatGeneral.forEach(chat => {
-    chat.onclick = () => {
-        people.style.left = "-100vw"
-        people.style.transition = "all, 0.5s"
+    const chatGeneral = document.querySelectorAll('.user')
 
-        const roomId = chat.id
+    chatGeneral.forEach(chat => {
+        chat.onclick = () => {
+            people.style.left = "-100vw"
+            people.style.transition = "all, 0.5s"
 
-        if (login.room !== roomId) {
+            const roomId = chat.id
 
-            socket.emit('changeRoom', roomId, login);
-            login.room = roomId
-            messages.innerHTML = ""
+            if (userData.room !== roomId) {
+
+                socket.emit('changeRoom', roomId, userData);
+                userData.room = roomId
+                messages.innerHTML = ""
+            }
+
+            titleMessage.innerHTML = `${roomId}`
         }
-
-        titleMessage.innerHTML = `${roomId}`
-    }
+    })
 })
-
 
 ///////////////////////////////////Title room in header message/////////////////////////////////
 
@@ -87,9 +92,7 @@ sendLogin.onclick = () => {
 //////////////////////////////////////////Connexion/////////////////////////////////////////////
 
 
-let socket = io();
-let login = {};
-let roomsClientSide = [];
+
 
 let formLogin = document.querySelector('#formLogin');
 
@@ -97,8 +100,8 @@ let formLogin = document.querySelector('#formLogin');
 
 socket.on('userId', (id, rooms) => {
     // console.log(id)
-    login.userId = id
-    login.room = rooms[0]
+    userData.userId = id
+    userData.room = rooms[0]
     roomsClientSide = rooms
 })
 
@@ -109,11 +112,11 @@ formLogin.addEventListener('submit', (e) => {
     const name = formData.get("nom")
     const mail = formData.get("email")
     let hash = md5(mail)
-    login.name = name
-    login.mail = mail
-    login.image = `https://gravatar.com/avatar/${hash}`
+    userData.name = name
+    userData.mail = mail
+    userData.image = `https://gravatar.com/avatar/${hash}`
 
-    socket.emit('user', login)
+    socket.emit('user', userData)
 
     const imgCompte = document.querySelector("#imgCompte")
     imgCompte.innerHTML += `
@@ -130,17 +133,17 @@ formLogin.addEventListener('submit', (e) => {
 let formMessage = document.getElementById('formMessage');
 let input = document.getElementById('input');
 
-// Contenu des message
+// Contenu des messages
 let messageFrame = {}
 
 // Envoie du message -----------------------------------------------------
 formMessage.addEventListener('submit', function (e) {
     e.preventDefault();
-    messageFrame.user = login.name
+    messageFrame.user = userData.name
     messageFrame.message = input.value
-    messageFrame.image = login.image
-    messageFrame.id = login.userId
-    messageFrame.room = login.room
+    messageFrame.image = userData.image
+    messageFrame.id = userData.userId
+    messageFrame.room = userData.room
 
     if (input.value) {
         socket.emit('chat message', messageFrame);
@@ -151,28 +154,20 @@ formMessage.addEventListener('submit', function (e) {
 //////////////////////////////////////////Audio message//////////////////////////////////////////
 
 socket.on('audioMessage', (audioMessage, userFrom) => {
-    console.log(audioMessage)
-    console.log(userFrom.name)
 
     let bufViewReceived = new Uint8Array(audioMessage);
-
-    console.log(bufViewReceived)
 
     let blobReceived = new Blob([bufViewReceived], {type: "audio/wav"});
 
     let url = window.URL.createObjectURL(blobReceived);
 
-    if (userFrom.userId === login.userId) {
+    if (userFrom.userId === userData.userId) {
         messages.innerHTML += `<li class="row-reverse"><audio controls src="${url}" ></audio></li>`
     } else {
         messages.innerHTML += `<li class="row"><audio controls src="${url}" ></audio></li>`
 
     }
     messages.scrollTop = messages.scrollHeight
-
-    console.log(url)
-
-    blobReceived = null
 
 })
 
@@ -181,13 +176,13 @@ socket.on('audioMessage', (audioMessage, userFrom) => {
 socket.on('chat message', function (msg) {
     let item = document.createElement('li');
     // Position
-    if (msg.id === login.userId) {
+    if (msg.id === userData.userId) {
         item.className = "row-reverse"
     } else {
         item.className = "row"
     }
     // Structure
-    if (msg.id === login.userId) {
+    if (msg.id === userData.userId) {
         item.innerHTML += `
                 <div class="messageMainDroite">
                     <div class="name-containerDroite">
@@ -252,7 +247,7 @@ const sendMessage = document.querySelector("#input")
 
 input.addEventListener('input', (e) => {
     const inputClick = e.target.value
-    socket.emit('isWriting', login);
+    socket.emit('isWriting', userData);
 })
 
 socket.on('isWriting', (login) => {
@@ -326,7 +321,7 @@ divMicro.onclick = () => {
             return;
         }
 
-        socket.emit('audioMessage', blob, login);
+        socket.emit('audioMessage', blob, userData);
 
         leftchannel = []
         rightchannel = []

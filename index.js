@@ -4,7 +4,6 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
@@ -12,68 +11,64 @@ app.get('/', (req, res) => {
 app.use(express.static('public'))
 
 let users = []
-let rooms = ["Chat room 1", "Chat room 2"]
+let rooms = ["Chat_room_1", "Chat_room_2", "Chat_room_3"]
 
 io.on('connection', (socket) => {
     console.log(socket.id)
     socket.emit('userId', socket.id, rooms)
     socket.join(rooms[0]);
+    socket.emit('roomCreation', rooms)
 
-    // console.log(socket)
+    socket.on('user', userData => {
+        users.push(userData)
 
-    socket.on('user', login => {
-        users.push(login)
-
-        let userInSameRoom = []
+        let usersInSameRoom = []
 
         users.forEach(user => {
-            if (user.room === login.room) {
-                userInSameRoom.push(user)
+            if (user.room === userData.room) {
+                usersInSameRoom.push(user)
             }
         })
 
-        io.to(login.room).emit('participants', userInSameRoom)
-        io.to(login.room).emit('connect message', `${login.name} vient de se connecter dans ${login.room}`)
+        io.to(userData.room).emit('participants', usersInSameRoom)
+        io.to(userData.room).emit('connect message', `${userData.name} vient de se connecter dans ${userData.room}`)
     })
 
     socket.on('chat message', msg => {
         io.to(msg.room).emit('chat message', msg);
     });
 
-    socket.on('isWriting', login => {
-        io.to(login.room).emit('isWriting', login)
+    socket.on('isWriting', userData => {
+        io.to(userData.room).emit('isWriting', userData)
     })
 
-    socket.on('changeRoom', (roomId, login) => {
+    socket.on('changeRoom', (roomId, userData) => {
         socket.join(roomId);
-        socket.leave(login.room)
+        socket.leave(userData.room)
 
-        const index = users.findIndex(user => user.userId === login.userId)
+        const index = users.findIndex(user => user.userId === userData.userId)
         users[index].room = roomId
-        console.log(users)
 
-        // -- A refactor car dupliquer -- //
-        let userInSameRoom = []
-        let userInLastRoom = []
+        let usersInSameRoom = []
+        let usersInLastRoom = []
 
         users.forEach(user => {
             if (user.room === roomId) {
-                userInSameRoom.push(user)
+                usersInSameRoom.push(user)
             }
-            if (user.room === login.room) {
-                userInLastRoom.push(user)
+            if (user.room === userData.room) {
+                usersInLastRoom.push(user)
             }
         })
 
-        io.to(login.room).emit('participants', userInLastRoom)
-        io.to(login.room).emit('connect message', `${login.name} vient de se déconnecter de ${login.room}`)
-        io.to(roomId).emit('participants', userInSameRoom)
-        io.to(roomId).emit('connect message', `${login.name} vient de se connecter dans ${roomId}`)
-        // ---------------------------------- //
+        io.to(userData.room).emit('participants', usersInLastRoom)
+        io.to(userData.room).emit('connect message', `${userData.name} vient de se déconnecter de ${userData.room}`)
+        io.to(roomId).emit('participants', usersInSameRoom)
+        io.to(roomId).emit('connect message', `${userData.name} vient de se connecter dans ${roomId}`)
     })
 
-    socket.on('audioMessage', (audioMessage, login) => {
-        io.to(login.room).emit('audioMessage', audioMessage, login)
+    socket.on('audioMessage', (audioMessage, userData) => {
+        io.to(userData.room).emit('audioMessage', audioMessage, userData)
     })
 
 

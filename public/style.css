@@ -380,7 +380,7 @@ h1, h2 {
     font-size: 3vh;
     top: 0;
     height: 77.5vh;
-    overflow: scroll;
+    overflow: auto;
     z-index: 0;
 }
 
@@ -392,7 +392,7 @@ h1, h2 {
     font-size: 3vh;
     top: -5vh;
     height: 77.5vh;
-    overflow: scroll;
+    overflow: auto;
     z-index: 0;
 }
 
@@ -508,6 +508,7 @@ h1, h2 {
     height: 77.5vh;
     width: 20vw;
     background-color: lightgray;
+    overflow : auto;
 }
 
 .noPointList {
