@@ -17,11 +17,15 @@ const people = document.querySelector("#people");
 const messages = document.querySelector("#messages")
 const message = document.querySelector("#message")
 const loginPage = document.querySelector("#loginPage")
-// let chatGeneral = null
+const roomsConnect = document.querySelector("#roomsConnect")
+const usersConnect = document.querySelector("#usersConnect")
 
-socket.on('roomCreation', rooms =>{
+socket.on('roomCreation', rooms => {
+
+    roomsConnect.innerHTML = ``
+
     rooms.forEach(room => {
-        people.innerHTML += `
+        roomsConnect.innerHTML += `
     <div class="user" id="${room}">
         <div class="imgUser">
             <img src="image/chat.svg" alt="chat" class="imgRoom">
@@ -51,9 +55,26 @@ socket.on('roomCreation', rooms =>{
     })
 })
 
+
+socket.on("usersConnect", users => {
+
+    usersConnect.innerHTML = ``
+
+    users.forEach(user => {
+        usersConnect.innerHTML += `
+    <div class="userLog" id="${user.userId}">
+        <div class="imgUser">
+            <img src="${user.image}" alt="chat" class="imgGrav">
+        </div>
+        <h2 class="nameUser">${user.name}</h2>
+    </div>`
+    })
+})
+
 ///////////////////////////////////Title room in header message/////////////////////////////////
 
 const headerMessage = document.querySelector("#headerMessage")
+
 headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
             <img src="image/chat.svg" alt="chat" class="imgRoomBig">
@@ -64,6 +85,7 @@ const titleMessage = document.querySelector(".titleMessage")
 //////////////////////////////////////////Transitions/////////////////////////////////////////////
 
 const backButton = document.querySelector("#backArrow")
+
 backButton.onclick = () => {
     people.style.left = "0"
 }
@@ -224,8 +246,9 @@ socket.on('connect message', function (msg) {
 //////////////////////////////////////Liste participants//////////////////////////////////////////
 
 socket.on('participants', (userInSameRoom) => {
-    // console.log(users)
+
     let participants = document.querySelector("#participants")
+
     participants.innerHTML = ""
 
     userInSameRoom.forEach(user => {
@@ -269,8 +292,8 @@ divMicro.onclick = () => {
 
     if (microOn) {
         divMicro.innerHTML = `
-            <img src="image/microphone.svg" alt="microphone" class="imgMicro startAndStop" id="stopRecordingButton">
-        `
+            <img src="image/microphone.svg" alt="microphone" class="imgMicro startAndStop" id="stopRecordingButton">`
+
         microOn = false
 
         // stop recording
@@ -329,8 +352,8 @@ divMicro.onclick = () => {
 
     } else {
         divMicro.innerHTML = `
-            <img src="image/stop.svg" alt="microphone" class="imgMicro startAndStop" id="startRecordingButton">
-        `
+            <img src="image/stop.svg" alt="microphone" class="imgMicro startAndStop" id="startRecordingButton">`
+
         microOn = true
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -374,6 +397,7 @@ divMicro.onclick = () => {
     }
 }
 
+// ---- Fonctions pour les vocaux
 
 function flattenArray(channelBuffer, recordingLength) {
     let result = new Float32Array(recordingLength);
@@ -397,6 +421,7 @@ function interleave(leftChannel, rightChannel) {
         result[index++] = rightChannel[inputIndex];
         inputIndex++;
     }
+
     return result;
 }
 
