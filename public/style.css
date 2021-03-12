@@ -317,8 +317,9 @@ h1, h2 {
     justify-content: center;
     text-align: center;
     color: dimgrey;
-    font-size: 2vh;
+    font-size: 1.5vh;
     opacity: 0.7;
+    font-family: Poppins, serif;
 }
 
 #formMessage {
@@ -458,6 +459,7 @@ h1, h2 {
 
 .row {
     flex-direction: row;
+
 }
 
 .row-reverse {
@@ -527,6 +529,18 @@ h1, h2 {
     border-radius: 100vh;
 }
 
+.imgRoom{
+    height: 4vh;
+    width: 5vh;
+    border-radius: 100vh;
+}
+
+.imgRoomBig{
+    height: 4vh;
+    width: 5vh;
+    border-radius: 100vh;
+}
+
 .imgGravParticipant {
     position: relative;
     top: 2vh;
@@ -571,4 +585,8 @@ h1, h2 {
     position: relative;
     height: 3.5vh;
     width: 3.5vh;
+}
+
+.fontPoppins {
+    font-family: Poppins, serif;
 }

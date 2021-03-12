@@ -24,7 +24,7 @@ socket.on('roomCreation', rooms =>{
         people.innerHTML += `
     <div class="user" id="${room}">
         <div class="imgUser">
-            <img src="image/chat.svg" alt="chat" class="imgGrav">
+            <img src="image/chat.svg" alt="chat" class="imgRoom">
         </div>
         <h2 class="nameUser">${room}</h2>
     </div>`
@@ -56,7 +56,7 @@ socket.on('roomCreation', rooms =>{
 const headerMessage = document.querySelector("#headerMessage")
 headerMessage.innerHTML += `
         <div class="imgDivMessageUser">
-            <img src="image/chat.svg" alt="chat" class="imgGrav">
+            <img src="image/chat.svg" alt="chat" class="imgRoomBig">
         </div>
         <h2 class="titleMessage"></h2>`
 const titleMessage = document.querySelector(".titleMessage")
@@ -251,7 +251,7 @@ input.addEventListener('input', (e) => {
 })
 
 socket.on('isWriting', (login) => {
-    isWriting.innerHTML = `${login.name} <img src="https://media.giphy.com/media/VeerK4hE9sjoB8e6OQ/giphy.gif" alt="isTyping">`
+    isWriting.innerHTML = `<a class="fontPoppins">${login.name}</a> <img src="https://media.giphy.com/media/VeerK4hE9sjoB8e6OQ/giphy.gif" alt="isTyping">`
     sendButton.onclick = () => {
         isWriting.innerHTML = ''
     }
