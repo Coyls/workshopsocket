@@ -590,3 +590,7 @@ h1, h2 {
 .fontPoppins {
     font-family: Poppins, serif;
 }
+
+audio:focus {
+    outline: none;
+}

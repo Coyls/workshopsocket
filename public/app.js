@@ -1,3 +1,12 @@
+// ----- Fonction timer ---- //
+const wait = (delay) => {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            resolve();
+        }, delay)
+    }))
+}
+
 // ----------------- Variable pour les audio ------------------------ //
 let leftchannel = [];
 let rightchannel = [];
@@ -277,9 +286,10 @@ socket.on('isWriting', (login) => {
     sendButton.onclick = () => {
         isWriting.innerHTML = ''
     }
-    if (sendMessage.value === '') {
+    wait(4000).then( () => {
         isWriting.innerHTML = ''
-    }
+    })
+
 })
 
 ////////////////////////////////////////////Micro//////////////////////////////////////////////////
