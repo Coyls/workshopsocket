@@ -206,7 +206,6 @@ socket.on('chat message', function (msg) {
                 </div>`
     }
 
-
     messages.appendChild(item);
     messages.scrollTop = messages.scrollHeight
 
