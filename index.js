@@ -18,9 +18,11 @@ io.on('connection', (socket) => {
     socket.emit('userId', socket.id, rooms)
     socket.join(rooms[0]);
     socket.emit('roomCreation', rooms)
+    socket.emit('usersConnect', users)
 
     socket.on('user', userData => {
         users.push(userData)
+        io.emit('usersConnect', users)
 
         let usersInSameRoom = []
 
@@ -43,6 +45,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('changeRoom', (roomId, userData) => {
+        io.emit('usersConnect', users)
         socket.join(roomId);
         socket.leave(userData.room)
 
@@ -80,6 +83,8 @@ io.on('connection', (socket) => {
             io.to(users[index].room).emit('connect message', ` ${users[index].name} vient de se déconnecter de ${users[index].room}`)
             users.splice(index, 1)
         }
+
+        io.emit('usersConnect', users)
 
     })
 });
